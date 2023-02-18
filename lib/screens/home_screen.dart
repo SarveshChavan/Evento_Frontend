@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../widgets/event_card.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const  routeName = "HomeScreen";
+
   const HomeScreen({Key? key}) : super(key: key);
 
   @override

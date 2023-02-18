@@ -1,4 +1,6 @@
+import 'package:events/routes.dart';
 import 'package:events/screens/home_screen.dart';
+import 'package:events/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: Routes.onGenerateRoute,
+      initialRoute: SignInScreen.routeName,
+
     );
   }
 }
