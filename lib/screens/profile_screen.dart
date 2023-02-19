@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class Profilescreen extends StatelessWidget {
+  static const routeName = 'profileScreen';
   const Profilescreen({Key? key}) : super(key: key);
 
   @override
