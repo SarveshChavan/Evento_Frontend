@@ -11,18 +11,15 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff65799b),
+        backgroundColor: Colors.green,
         title: const Text(
           'Evento',
           style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w400
-          ),
+              fontSize: 16, color: Colors.white, fontWeight: FontWeight.w400),
         ),
         actions: [
           IconButton(
-              onPressed: (){},
+              onPressed: () {},
               icon: Icon(
                 Icons.account_circle_rounded,
                 color: Colors.white,
@@ -39,4 +36,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
