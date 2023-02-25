@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:events/screens/signin_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../widgets/event_card.dart';
 
@@ -19,7 +21,12 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                FirebaseAuth.instance.signOut().then((value) => {
+                  print("signed out"),
+                Navigator.pushNamed(context, SignInScreen.routeName)
+                });
+              },
               icon: Icon(
                 Icons.account_circle_rounded,
                 color: Colors.white,
