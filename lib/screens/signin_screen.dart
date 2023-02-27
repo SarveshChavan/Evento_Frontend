@@ -43,7 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                TextFieldWidget('Enter password', Icons.lock_outline, true,
+                TextFieldWidget('Enter passwor', Icons.lock_outline, true,
                     _passwordTextController),
                 const SizedBox(
                   height: 20,
