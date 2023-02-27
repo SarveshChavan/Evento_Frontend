@@ -1,12 +1,20 @@
 import 'package:events/routes.dart';
 import 'package:events/screens/home_screen.dart';
 
+
 import 'package:events/screens/profile_screen.dart';
 
 import 'package:events/screens/signin_screen.dart';
+
+import 'package:events/screens/profile_screen.dart';
+import 'package:events/screens/signin_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
