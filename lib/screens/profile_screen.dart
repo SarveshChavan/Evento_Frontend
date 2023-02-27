@@ -30,7 +30,7 @@ class Profilescreen extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      "My Profile",
+                      "your profile",
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
