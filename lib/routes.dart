@@ -12,7 +12,7 @@ class Routes {
     switch (routeSettings.name) {
 
 
-  static Route? onGenerateRoute(RouteSettings routeSettings) {
+    static Route? onGenerateRoute(RouteSettings routeSettings) {
     switch(routeSettings.name) {
 
 
