@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: const Text(
-          'Evento',
+          'Event',
           style: TextStyle(
               fontSize: 16, color: Colors.white, fontWeight: FontWeight.w400),
         ),
