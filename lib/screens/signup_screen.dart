@@ -1,5 +1,5 @@
-import 'package:events/screens/home_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:events/screens/home_screen.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -65,16 +65,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                LogInSignUpButton(context, false, () {
-                  FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text).then((value) {
-                        print("Created acc");
-                    Navigator.pushNamed(context, HomeScreen.routeName);
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
-                }),
+                // LogInSignUpButton(context, false, () {
+                //   FirebaseAuth.instance.createUserWithEmailAndPassword(
+                //       email: _emailTextController.text,
+                //       password: _passwordTextController.text).then((value) {
+                //         print("Created acc");
+                //     // Navigator.pushNamed(context, HomeScreen.routeName);
+                //   }).onError((error, stackTrace) {
+                //     print("Error ${error.toString()}");
+                //   });
+                // }),
               ],
             ),
           ),

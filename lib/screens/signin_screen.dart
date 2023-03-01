@@ -1,9 +1,9 @@
 import 'package:events/screens/signup_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/reusable_widgets.dart';
-import 'home_screen.dart';
+// import 'home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   static const routeName = "SignInScreen";
@@ -48,16 +48,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                LogInSignUpButton(context, true, () {
-                  FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text).then((value) => {
-                  Navigator.pushNamed(context, HomeScreen.routeName),
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                    throw Future.error(error!);
-                  });
-                }),
+                // LogInSignUpButton(context, true, () {
+                //   FirebaseAuth.instance.signInWithEmailAndPassword(
+                //       email: _emailTextController.text,
+                //       password: _passwordTextController.text).then((value) => {
+                //   // Navigator.pushNamed(context, HomeScreen.routeName),
+                //   }).onError((error, stackTrace) {
+                //     print("Error ${error.toString()}");
+                //     throw Future.error(error!);
+                //   });
+                // }),
                 const SizedBox(
                   height: 20,
                 ),

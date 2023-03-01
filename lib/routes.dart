@@ -1,4 +1,4 @@
-import 'package:events/screens/home_screen.dart';
+// import 'package:events/screens/home_screen.dart';
 import 'package:events/screens/profile_screen.dart';
 import 'package:events/screens/signin_screen.dart';
 import 'package:events/screens/signup_screen.dart';
@@ -23,9 +23,9 @@ class Routes {
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => SignInScreen());
 
-      case HomeScreen.routeName:
-        return MaterialPageRoute(
-            settings: routeSettings, builder: (_) => HomeScreen());
+      // case HomeScreen.routeName:
+      //   return MaterialPageRoute(
+      //       settings: routeSettings, builder: (_) => HomeScreen());
 
       case Profilescreen.routeName:
         return MaterialPageRoute(
