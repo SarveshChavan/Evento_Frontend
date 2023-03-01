@@ -1,4 +1,7 @@
+import 'package:events/constants/colors.dart';
+import 'package:events/constants/theme.dart';
 import 'package:events/screens/signup_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -23,47 +26,93 @@ class _SignInScreenState extends State<SignInScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-          colors: [
-            Color(0xffDA4453),
-            Color(0xff89216B),
-          ],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-        )),
+          color: Colors.white70
+        ),
         child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                20, MediaQuery.of(context).size.height * 0.1, 20, 0),
-            child: Column(
-              children: <Widget>[
-                logoWidget('assets/images/evento_logo.png'),
-                TextFieldWidget('Enter email', Icons.person_outline, false,
-                    _emailTextController),
-                const SizedBox(
-                  height: 20,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Image.network(
+                'https://wallpapercave.com/uwp/uwp2279327.png',
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20,MediaQuery.of(context).size.height * 0.1, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Welcome',
+                      style: appTheme().textTheme.headline2?.copyWith(
+                        color: AppColors.colors.brown
+                      )
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Sign In',
+                      style: appTheme().textTheme.headline4?.copyWith(
+                        color: AppColors.colors.brown,
+                        fontWeight: FontWeight.w600
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFieldWidget(
+                        'Enter email',
+                        CupertinoIcons.mail_solid,
+                        false,
+                        Icons.account_circle_rounded,
+                        false,
+                        _emailTextController),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFieldWidget(
+                        'Enter password',
+                        CupertinoIcons.lock_fill,
+                        true,
+                        CupertinoIcons.eye_fill,
+                        true,
+                        _passwordTextController),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Forget Password?',
+                            style: appTheme().textTheme.headline3?.copyWith(
+                              color: AppColors.colors.brown
+                            )
+                          ),
+                          LogInSignUpButton(context, 'Login', true, () {
+                            FirebaseAuth.instance.signInWithEmailAndPassword(
+                                email: _emailTextController.text,
+                                password: _passwordTextController.text).then((value) => {
+                            Navigator.pushNamed(context, HomeScreen.routeName),
+                            }).onError((error, stackTrace) {
+                              print("Error ${error.toString()}");
+                              throw Future.error(error!);
+                            });
+                            Navigator.pushNamed(context, HomeScreen.routeName);
+                          }),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height*0.1,
+                    ),
+                    SignUpOtption(),
+                  ],
                 ),
-                TextFieldWidget('Enter password', Icons.lock_outline, true,
-                    _passwordTextController),
-                const SizedBox(
-                  height: 20,
-                ),
-                LogInSignUpButton(context, true, () {
-                  FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text).then((value) => {
-                  Navigator.pushNamed(context, HomeScreen.routeName),
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                    throw Future.error(error!);
-                  });
-                }),
-                const SizedBox(
-                  height: 20,
-                ),
-                SignUpOtption(),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -74,11 +123,11 @@ class _SignInScreenState extends State<SignInScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Text(
+        Text(
           "Don't have an account? ",
-          style: TextStyle(
-            color: Colors.white70,
-          ),
+          style: appTheme().textTheme.headline3?.copyWith(
+            fontSize: 16,
+          )
         ),
         GestureDetector(
           onTap: () {
@@ -86,7 +135,12 @@ class _SignInScreenState extends State<SignInScreen> {
           },
           child: Text(
             "Sign Up",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: appTheme().textTheme.headline3?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: AppColors().brown
+
+            )
           ),
         )
       ],
