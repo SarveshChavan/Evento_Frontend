@@ -1,10 +1,12 @@
 import 'package:events/routes.dart';
+
 // import 'package:events/screens/home_screen.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
 import 'package:events/screens/evenpageothers_screen.dart';
 
 
 import 'package:events/screens/profile_screen.dart';
+
 
 import 'package:events/screens/signin_screen.dart';
 

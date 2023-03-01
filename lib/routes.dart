@@ -1,7 +1,13 @@
-// import 'package:events/screens/home_screen.dart';
+
+
 import 'package:events/screens/profile_screen.dart';
+
+import 'package:events/screens/home_screen.dart';
+import 'package:events/screens/security_question_screen.dart';
+
 import 'package:events/screens/signin_screen.dart';
 import 'package:events/screens/signup_screen.dart';
+import 'package:events/widgets/security_question_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,8 +37,13 @@ class Routes {
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => Profilescreen());
 
-      default:
-        return null;
+
+      case SecurityQuestion.routeName:
+        return MaterialPageRoute(
+            settings: routeSettings, builder: (_) => SecurityQuestion());
+
+      default: return null;
+
     }
   }
 }
