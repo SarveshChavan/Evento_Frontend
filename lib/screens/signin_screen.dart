@@ -24,7 +24,6 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           color: Colors.white70
         ),
@@ -36,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 'https://wallpapercave.com/uwp/uwp2279327.png',
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(20,MediaQuery.of(context).size.height * 0.1, 20, 0),
+                padding: EdgeInsets.fromLTRB(20,MediaQuery.of(context).size.height * 0.04, 20, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
@@ -48,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       )
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 8,
                     ),
                     Text(
                       'Sign In',
@@ -106,7 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height*0.1,
+                      height: MediaQuery.of(context).size.height*0.04,
                     ),
                     SignUpOtption(),
                   ],
