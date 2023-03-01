@@ -115,20 +115,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: LogInSignUpButton(context, 'Next', true, () {
+                  child: LogInSignUpButton(context, 'Next', true,
+                          // if password and confirm password not equal then it should focus on confirmPassword TextField
+                          _passwordTextController.text==_confirmPasswordController.text?
+                              () {
                     FirebaseAuth.instance.createUserWithEmailAndPassword(
                         email: _emailTextController.text,
                         password: _passwordTextController.text).then((value) {
                           print("Created acc");
-                      Navigator.pushNamed(context, HomeScreen.routeName);
+                          Navigator.pushNamed(context, SecurityQuestion.routeName);
                     }).onError((error, stackTrace) {
                       print("Error ${error.toString()}");
                     });
-
-
-
-                    Navigator.pushNamed(context, SecurityQuestion.routeName);
-                  }),
+                  }:(){}
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height*0.1,
@@ -162,7 +162,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   color: AppColors().brown
-
               )
           ),
         )
