@@ -1,5 +1,7 @@
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
+import 'package:events/screens/bottomNavgation_bar.dart';
+import 'package:events/screens/ongoing_screen.dart';
 import 'package:events/screens/signup_screen.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -97,12 +99,12 @@ class _SignInScreenState extends State<SignInScreen> {
                             FirebaseAuth.instance.signInWithEmailAndPassword(
                                 email: _emailTextController.text,
                                 password: _passwordTextController.text).then((value) => {
-                            Navigator.pushNamed(context, HomeScreen.routeName),
+                            Navigator.pushNamed(context, ongoingScreen.routeName),
                             }).onError((error, stackTrace) {
                               print("Error ${error.toString()}");
                               throw Future.error(error!);
                             });
-                            Navigator.pushNamed(context, HomeScreen.routeName);
+                            Navigator.pushNamed(context, bottomnavigation_bar.routeName);
                           }),
                         ],
                       ),

@@ -1,13 +1,13 @@
 
 
+import 'package:events/screens/bottomNavgation_bar.dart';
+import 'package:events/screens/ongoing_screen.dart';
 import 'package:events/screens/profile_screen.dart';
-
-import 'package:events/screens/home_screen.dart';
+import 'package:events/screens/profile_details.dart';
 import 'package:events/screens/security_question_screen.dart';
 
 import 'package:events/screens/signin_screen.dart';
 import 'package:events/screens/signup_screen.dart';
-import 'package:events/widgets/security_question_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,9 +29,9 @@ class Routes {
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => SignInScreen());
 
-      // case HomeScreen.routeName:
-      //   return MaterialPageRoute(
-      //       settings: routeSettings, builder: (_) => HomeScreen());
+      case ongoingScreen.routeName:
+        return MaterialPageRoute(
+            settings: routeSettings, builder: (_) => ongoingScreen());
 
       case Profilescreen.routeName:
         return MaterialPageRoute(
@@ -42,8 +42,11 @@ class Routes {
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => SecurityQuestion());
 
+      case bottomnavigation_bar.routeName:
+        return MaterialPageRoute(builder: (_)=>bottomnavigation_bar());
       default: return null;
 
     }
   }
 }
+

@@ -1,15 +1,11 @@
 import 'dart:core';
-
-import 'package:events/constants/colors.dart';
 import 'package:flutter/material.dart';
-
-
-
 import '../widgets/newevent_cards.dart';
 
 
 
 class ongoingScreen extends StatefulWidget {
+  static const routeName = 'ongoingScreen';
   const ongoingScreen({Key? key}) : super(key: key);
 
   @override

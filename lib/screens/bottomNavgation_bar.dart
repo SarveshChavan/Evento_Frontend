@@ -2,9 +2,9 @@ import 'package:events/constants/colors.dart';
 import 'package:events/screens/menu_screen.dart';
 import 'package:events/screens/profilemain_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:events/screens/bottomNavgation_bar.dart';
 
 class bottomnavigation_bar extends StatefulWidget {
+  static const routeName = 'bottomnavigation_bar';
   const bottomnavigation_bar({Key? key}) : super(key: key);
 
   @override
@@ -32,8 +32,8 @@ int currenttab=0;
       ),
     floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     bottomNavigationBar: BottomAppBar(
-      color: AppColors.colors.midShade,
       height: 60,
+      color: AppColors.colors.midShade,
       shape: CircularNotchedRectangle(),
       child: Container(
         child: Row(

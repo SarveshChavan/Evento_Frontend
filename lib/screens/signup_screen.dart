@@ -2,7 +2,6 @@
 
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
-import 'package:events/screens/home_screen.dart';
 import 'package:events/screens/security_question_screen.dart';
 import 'package:events/screens/signin_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
