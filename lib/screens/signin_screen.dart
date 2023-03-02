@@ -1,12 +1,14 @@
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/signup_screen.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 import '../widgets/reusable_widgets.dart';
-import 'home_screen.dart';
+// import 'home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   static const routeName = "SignInScreen";
@@ -28,6 +30,7 @@ class _SignInScreenState extends State<SignInScreen> {
           color: Colors.white70
         ),
         child: SingleChildScrollView(
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -109,6 +112,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     SignUpOtption(),
                   ],
+
                 ),
               ),
             ],

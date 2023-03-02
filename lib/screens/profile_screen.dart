@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class Profilescreen extends StatelessWidget {
+  static const routeName = 'profileScreen';
   const Profilescreen({Key? key}) : super(key: key);
 
   @override
@@ -29,7 +30,7 @@ class Profilescreen extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      "My Profile",
+                      "your profile",
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),

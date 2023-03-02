@@ -6,6 +6,7 @@ import 'package:events/screens/home_screen.dart';
 import 'package:events/screens/security_question_screen.dart';
 import 'package:events/screens/signin_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -113,6 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 20,
                 ),
+
                 Align(
                   alignment: Alignment.centerRight,
                   child: LogInSignUpButton(context, 'Next', true,
@@ -134,6 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: MediaQuery.of(context).size.height*0.1,
                 ),
                 Center(child: SignInOtption())
+
               ],
             ),
           ),
