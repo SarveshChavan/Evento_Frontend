@@ -3,24 +3,15 @@
 import 'package:events/screens/bottomNavgation_bar.dart';
 import 'package:events/screens/ongoing_screen.dart';
 import 'package:events/screens/profile_screen.dart';
-import 'package:events/screens/profile_details.dart';
 import 'package:events/screens/security_question_screen.dart';
-
 import 'package:events/screens/signin_screen.dart';
 import 'package:events/screens/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
-
-
-
-
     static Route? onGenerateRoute(RouteSettings routeSettings) {
     switch(routeSettings.name) {
-
-
-
       case SignUpScreen.routeName:
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => SignUpScreen());
@@ -36,8 +27,7 @@ class Routes {
       case Profilescreen.routeName:
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => Profilescreen());
-
-
+            
       case SecurityQuestion.routeName:
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => SecurityQuestion());
