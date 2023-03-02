@@ -1,6 +1,6 @@
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
-import 'package:events/screens/home_screen.dart';
+import 'package:events/screens/ongoing_screen.dart';
 import 'package:events/screens/signin_screen.dart';
 import 'package:events/widgets/security_question_dropdown.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -100,7 +100,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                   child: LogInSignUpButton(context, 'Signup', false, () {
                     print(SecurityDropDown());
                     print(_answerTextController.text);
-                    Navigator.pushNamed(context, HomeScreen.routeName);
+                    Navigator.pushNamed(context, ongoingScreen.routeName);
                   }),
                 ),
                 SizedBox(
