@@ -42,10 +42,6 @@ class Routes {
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => SecurityQuestion());
 
-      case ProfileDetails.routeName:
-        return MaterialPageRoute(
-            settings: routeSettings, builder: (_) => ProfileDetails());
-
       case bottomnavigation_bar.routeName:
         return MaterialPageRoute(builder: (_)=>bottomnavigation_bar());
       default: return null;
