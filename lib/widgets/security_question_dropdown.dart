@@ -4,14 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SecurityDropDown extends StatefulWidget {
-
-
+  String? selectedQuestion;
   @override
   _SecurityDropDownState createState() => _SecurityDropDownState();
-
 }
 class _SecurityDropDownState extends State<SecurityDropDown> {
-  String? selectedQuestion;
+
   List<String> questionList = <String>[
     "Where do you live?",
     "What is the name of your Crush?",
@@ -40,7 +38,7 @@ class _SecurityDropDownState extends State<SecurityDropDown> {
         ),
       ),
       isExpanded: true,
-      value: selectedQuestion,
+      value: widget.selectedQuestion,
       items: questionList.map((String value) {
         return DropdownMenuItem<String>(
           value: value,
@@ -49,11 +47,11 @@ class _SecurityDropDownState extends State<SecurityDropDown> {
           ),
         );
       }).toList(),
-      onChanged: (_) {
+      onChanged: (val) {
         FocusScope.of(context).requestFocus(FocusNode());
         FocusScope.of(context).requestFocus(FocusNode());
         setState(() {
-          selectedQuestion = _!;
+          widget.selectedQuestion = val!;
         });
       },
     );

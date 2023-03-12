@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/reusable_widgets.dart';
+import '../widgets/login_signup_button.dart';
 
 class SecurityQuestion extends StatefulWidget {
   static const routeName = 'SecurityQuestion';
@@ -18,7 +18,7 @@ class SecurityQuestion extends StatefulWidget {
 
 class _SecurityQuestionState extends State<SecurityQuestion> {
   TextEditingController _answerTextController = TextEditingController();
-
+  SecurityDropDown question_selected = new SecurityDropDown();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +59,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                 SizedBox(
                   height: 40,
                 ),
-                SecurityDropDown(),
+                question_selected,
                 SizedBox(
                   height: 20,
                 ),
@@ -98,7 +98,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: LogInSignUpButton(context, 'Signup', false, () {
-                    print(SecurityDropDown());
+                    print(question_selected.selectedQuestion);
                     print(_answerTextController.text);
                     Navigator.pushNamed(context, ongoingScreen.routeName);
                   }),
