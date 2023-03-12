@@ -11,7 +11,8 @@ import '../widgets/login_signup_button.dart';
 
 class SecurityQuestion extends StatefulWidget {
   static const routeName = 'SecurityQuestion';
-
+  const SecurityQuestion({super.key,  required this.email, required this.password, required this.userName});
+  final String email,password,userName;
   @override
   State<SecurityQuestion> createState() => _SecurityQuestionState();
 }
@@ -100,6 +101,13 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                   child: LogInSignUpButton(context, 'Signup', false, () {
                     print(question_selected.selectedQuestion);
                     print(_answerTextController.text);
+                    FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: widget.email,
+                        password: widget.password).then((value) {
+                      print("Created acc");
+                    }).onError((error, stackTrace) {
+                      print("Error ${error.toString()}");
+                    });
                     Navigator.pushNamed(context, ongoingScreen.routeName);
                   }),
                 ),

@@ -102,14 +102,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         // if password and confirm password not equal then it should focus on confirmPassword TextField
                         _passwordTextController.text==_confirmPasswordController.text?
                             () {
-                  FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text).then((value) {
-                        print("Created acc");
-                        Navigator.pushNamed(context, SecurityQuestion.routeName);
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
+                              Navigator.pushNamed(context, SecurityQuestion.routeName, arguments: {
+                                'email':_emailTextController.text,
+                                'password':_passwordTextController.text,
+                                'userName':_userNameTextController.text
+                              });
                 }:(){}
                 ),
               ),
