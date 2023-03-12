@@ -27,8 +27,10 @@ class Routes {
             settings: routeSettings, builder: (_) => Profilescreen());
             
       case SecurityQuestion.routeName:
+        var args = routeSettings.arguments as Map;
         return MaterialPageRoute(
-            settings: routeSettings, builder: (_) => SecurityQuestion());
+            settings: routeSettings,
+            builder: (_) => SecurityQuestion(email: args['email'], userName: args['userName'], password: args['password']));
 
       case ProfileDetails.routeName:
         return MaterialPageRoute(
