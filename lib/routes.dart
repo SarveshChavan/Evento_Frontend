@@ -38,6 +38,8 @@ class Routes {
 
       case bottomnavigation_bar.routeName:
         return MaterialPageRoute(builder: (_)=>bottomnavigation_bar());
+
+
       default: return null;
 
     }

@@ -11,7 +11,7 @@ class TextFieldWidget extends StatefulWidget {
   late bool isPasswordType;
   final TextEditingController controller;
 
-  TextFieldWidget(@required this.text, @required this.prefix_icon, @required this.isSuffix, this.suffix_icon, @required this.isPasswordType, @required this.controller);
+  TextFieldWidget({required this.text, required this.prefix_icon, required this.isSuffix, required this.suffix_icon, required this.isPasswordType, required this.controller});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
