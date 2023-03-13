@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 @immutable
+//Local URL
+const String uri = 'http://192.168.163.180:5000/evento';
 class AppColors {
   static const colors = AppColors();
 
