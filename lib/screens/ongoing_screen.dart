@@ -2,8 +2,6 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import '../widgets/newevent_cards.dart';
 
-
-
 class ongoingScreen extends StatefulWidget {
   static const routeName = 'ongoingScreen';
   const ongoingScreen({Key? key}) : super(key: key);
@@ -13,8 +11,6 @@ class ongoingScreen extends StatefulWidget {
 }
 
 class _ongoingScreenState extends State<ongoingScreen> {
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +24,6 @@ class _ongoingScreenState extends State<ongoingScreen> {
             child: Column(
               children: [
                 Row(
-
                   children: [
                     Text("Tech")
                   ],
