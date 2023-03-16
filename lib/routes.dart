@@ -1,4 +1,5 @@
 import 'package:events/screens/bottomNavgation_bar.dart';
+import 'package:events/screens/change_password.dart';
 import 'package:events/screens/ongoing_screen.dart';
 import 'package:events/screens/profile_details.dart';
 import 'package:events/screens/profile_screen.dart';
@@ -35,6 +36,10 @@ class Routes {
       case ProfileDetails.routeName:
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => ProfileDetails());
+
+      case ChangePassword.routeName:
+        return MaterialPageRoute(
+            settings: routeSettings, builder: (_) => ChangePassword());
 
       case bottomnavigation_bar.routeName:
         return MaterialPageRoute(builder: (_)=>bottomnavigation_bar());

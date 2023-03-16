@@ -36,40 +36,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Text(
                 'Evento',
                 style: appTheme().textTheme.headline3?.copyWith(
-                  color: AppColors.colors.brown,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500
-                ),
+                    color: AppColors.colors.brown,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
               ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Create an Account',
-            style: appTheme().textTheme.headline3?.copyWith(
-                color: AppColors.colors.brown,
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-            ),
-          ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Create an Account',
+                style: appTheme().textTheme.headline3?.copyWith(
+                    color: AppColors.colors.brown,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
               SizedBox(
                 height: 40,
               ),
               TextFieldWidget(
-                  text: 'Enter email',
-                  prefix_icon: CupertinoIcons.mail_solid,
-                  isSuffix: false,
-                  suffix_icon: Icons.account_circle_rounded,
-                  isPasswordType: false,
-                  controller: _emailTextController,  ),
+                text: 'Enter email',
+                prefixIcon: CupertinoIcons.mail_solid,
+                isSuffix: false,
+                suffixIcon: Icons.account_circle_rounded,
+                isPasswordType: false,
+                controller: _emailTextController,
+              ),
               SizedBox(
                 height: 20,
               ),
               TextFieldWidget(
                   text: 'Enter Username',
-                  prefix_icon: CupertinoIcons.person_alt,
+                  prefixIcon: CupertinoIcons.person_alt,
                   isSuffix: false,
-                  suffix_icon: Icons.account_circle_rounded,
+                  suffixIcon: Icons.account_circle_rounded,
                   isPasswordType: false,
                   controller: _userNameTextController),
               SizedBox(
@@ -77,9 +76,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               TextFieldWidget(
                   text: 'Enter password',
-                  prefix_icon: CupertinoIcons.lock_fill,
+                  prefixIcon: CupertinoIcons.lock_fill,
                   isSuffix: true,
-                  suffix_icon: CupertinoIcons.eye_fill,
+                  suffixIcon: CupertinoIcons.eye_fill,
                   isPasswordType: true,
                   controller: _passwordTextController),
               SizedBox(
@@ -87,58 +86,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               TextFieldWidget(
                   text: 'Enter Confirm password',
-                  prefix_icon: CupertinoIcons.lock_fill,
+                  prefixIcon: CupertinoIcons.lock_fill,
                   isSuffix: true,
-                  suffix_icon: CupertinoIcons.eye_fill,
+                  suffixIcon: CupertinoIcons.eye_fill,
                   isPasswordType: true,
                   controller: _confirmPasswordController),
               const SizedBox(
                 height: 20,
               ),
-
               Align(
                 alignment: Alignment.centerRight,
-                child: LogInSignUpButton(context, 'Next', true,
-                        // if password and confirm password not equal then it should focus on confirmPassword TextField
-                        _passwordTextController.text==_confirmPasswordController.text?
-                            () {
-                              Navigator.pushNamed(context, SecurityQuestion.routeName, arguments: {
-                                'email':_emailTextController.text,
-                                'password':_passwordTextController.text,
-                                'userName':_userNameTextController.text
+                child: LogInSignUpButton(
+                  text: 'Next',
+                  isLogin: true,
+                  onTap: _passwordTextController.text ==
+                          _confirmPasswordController.text
+                      ? () {
+                          Navigator.pushNamed(
+                              context, SecurityQuestion.routeName,
+                              arguments: {
+                                'email': _emailTextController.text,
+                                'password': _passwordTextController.text,
+                                'userName': _userNameTextController.text
                               });
-                }:(){}
+                        }
+                      : () {},
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height*0.1,
+                height: MediaQuery.of(context).size.height * 0.1,
               ),
               Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                          "Already have an account? ",
-                          style: appTheme().textTheme.headline3?.copyWith(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Already have an account? ",
+                      style: appTheme().textTheme.headline3?.copyWith(
                             fontSize: 16,
-                          )
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, SignInScreen.routeName);
-                        },
-                        child: Text(
-                            "Sign In here!",
-                            style: appTheme().textTheme.headline3?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: AppColors().brown
-                            )
-                        ),
-                      )
-                    ],
+                          )),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, SignInScreen.routeName);
+                    },
+                    child: Text("Sign In here!",
+                        style: appTheme().textTheme.headline3?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: AppColors().brown)),
                   )
-              )
+                ],
+              ))
             ],
           ),
         ),
