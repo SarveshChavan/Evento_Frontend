@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatefulWidget {
   final String text;
-  final IconData prefix_icon;
+  final IconData prefixIcon;
   final bool isSuffix;
-  final IconData suffix_icon;
+  final IconData suffixIcon;
   late bool isPasswordType;
   final TextEditingController controller;
-
-  TextFieldWidget({required this.text, required this.prefix_icon, required this.isSuffix, required this.suffix_icon, required this.isPasswordType, required this.controller});
+  TextFieldWidget({super.key, required this.text, required this.prefixIcon, required this.isSuffix, required this.suffixIcon, required this.isPasswordType, required this.controller,});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -31,7 +30,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         decoration: InputDecoration(
             focusColor: AppColors.colors.midDarkShade,
             prefixIcon: Icon(
-              widget.prefix_icon,
+              widget.prefixIcon,
               color: AppColors.colors.darkShade,
             ),
             suffixIcon: widget.isSuffix ? IconButton(
@@ -42,7 +41,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 );
               },
               icon: widget.isPasswordType ? Icon(
-                widget.suffix_icon,
+                widget.suffixIcon,
                 color: AppColors.colors.darkShade,
               ): Icon(
                 CupertinoIcons.eye_slash_fill,

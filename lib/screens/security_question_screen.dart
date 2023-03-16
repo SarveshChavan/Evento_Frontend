@@ -11,8 +11,12 @@ import '../widgets/login_signup_button.dart';
 
 class SecurityQuestion extends StatefulWidget {
   static const routeName = 'SecurityQuestion';
-  const SecurityQuestion({super.key,  required this.email, required this.password, required this.userName});
-  final String email,password,userName;
+  const SecurityQuestion(
+      {super.key,
+      required this.email,
+      required this.password,
+      required this.userName});
+  final String email, password, userName;
   @override
   State<SecurityQuestion> createState() => _SecurityQuestionState();
 }
@@ -36,8 +40,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                 style: appTheme().textTheme.headline3?.copyWith(
                     color: AppColors.colors.brown,
                     fontSize: 20,
-                    fontWeight: FontWeight.bold
-                ),
+                    fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 20,
@@ -47,8 +50,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                 style: appTheme().textTheme.headline3?.copyWith(
                     color: AppColors.colors.brown,
                     fontSize: 18,
-                    fontWeight: FontWeight.w500
-                ),
+                    fontWeight: FontWeight.w500),
               ),
               SizedBox(
                 height: 40,
@@ -57,55 +59,56 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
               SizedBox(
                 height: 20,
               ),
-          TextField(
-              controller: _answerTextController,
-              cursorColor: AppColors.colors.grey,
-              style: TextStyle(
-                color: AppColors.colors.grey,
-              ),
-              decoration: InputDecoration(
-                  focusColor: AppColors.colors.midDarkShade,
-                  labelText: 'Answer',
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-
-                  labelStyle: TextStyle(
-                    color: AppColors.colors.grey,),
-                  filled: true,
-                  // floatingLabelBehavior: FloatingLabelBehavior.never,
-                  fillColor: AppColors.colors.lightestShade,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(width: 0, style: BorderStyle.none)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: AppColors.colors.darkShade
+              TextField(
+                controller: _answerTextController,
+                cursorColor: AppColors.colors.grey,
+                style: TextStyle(
+                  color: AppColors.colors.grey,
+                ),
+                decoration: InputDecoration(
+                    focusColor: AppColors.colors.midDarkShade,
+                    labelText: 'Answer',
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    labelStyle: TextStyle(
+                      color: AppColors.colors.grey,
                     ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  )
+                    filled: true,
+                    // floatingLabelBehavior: FloatingLabelBehavior.never,
+                    fillColor: AppColors.colors.lightestShade,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                            width: 0, style: BorderStyle.none)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.colors.darkShade),
+                      borderRadius: BorderRadius.circular(10.0),
+                    )),
               ),
-
-          ),
               const SizedBox(
                 height: 20,
               ),
               Align(
                 alignment: Alignment.centerRight,
-                child: LogInSignUpButton(context, 'Signup', false, () {
-                  print(question_selected.selectedQuestion);
-                  print(_answerTextController.text);
-                  FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: widget.email,
-                      password: widget.password).then((value) {
-                    print("Created acc");
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
-                  Navigator.pushNamed(context, ongoingScreen.routeName);
-                }),
+                child: LogInSignUpButton(
+                  text: 'Signup',
+                  isLogin: false,
+                  onTap: () {
+                    print(question_selected.selectedQuestion);
+                    print(_answerTextController.text);
+                    FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: widget.email, password: widget.password)
+                        .then((value) {
+                      print("Created acc");
+                    }).onError((error, stackTrace) {
+                      print("Error ${error.toString()}");
+                    });
+                    Navigator.pushNamed(context, ongoingScreen.routeName);
+                  },
+                ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height*0.1,
+                height: MediaQuery.of(context).size.height * 0.1,
               )
             ],
           ),

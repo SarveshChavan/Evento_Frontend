@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
+import 'package:events/screens/change_password.dart';
 import 'package:events/screens/custom_shape.dart';
+import 'package:events/widgets/custom_shape_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,60 +58,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Stack(
-              children: [
-                CustomShape(),
-                Positioned(
-                  left: 1.19 * width / 4,
-                  top: 0,
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.grey.shade50,
-                        radius: 80,
-                        child: CircleAvatar(
-                          radius: 70,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                              child: img==null?Image(image: NetworkImage(photoUrl)):Image.file(
-                                File(img!.path),
-                                fit: BoxFit.cover,
-                                height: 140,
-                                width: 140,
-                              )),
-                        ),
-                      ),
-                      Positioned(
-                          left: 120,
-                          top: 120,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 20,
-                            child: IconButton(
-                              onPressed: () {
-                                pickImage();
-                              },
-                              icon: Icon(
-                                Icons.add_a_photo_outlined,
-                                color: AppColors.colors.brown,
-                              ),
-                            ),
-                          )),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  userName,
-                  style: appTheme().textTheme.headline2,
-                ),
-              ],
-            ),
-
+            CustomShapeProfile(width: width, userName: userName, photoUrl: photoUrl, img: img, pickImage: pickImage,),
             Center(
               child: Text('Events: $eventCount',  style: appTheme().textTheme.headline3?.copyWith(
                   fontWeight: FontWeight.bold,
@@ -227,6 +176,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     borderRadius: BorderRadius.circular(10)
                 ),
                 onTap: (){
+                  Navigator.pushNamed(context, ChangePassword.routeName);
                 },
               ),
             ),
