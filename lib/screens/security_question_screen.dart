@@ -1,3 +1,4 @@
+import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/ongoing_screen.dart';
@@ -95,6 +96,15 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                   onTap: () {
                     print(question_selected.selectedQuestion);
                     print(_answerTextController.text);
+                    //TODO: remove shared prefs string before calling register user
+                    AuthService().registerUser(
+                        context: context,
+                        userName: widget.userName,
+                        email: widget.email,
+                        password: widget.password,
+                        securityQuestion:
+                            question_selected.selectedQuestion.toString(),
+                        securityAnswer: _answerTextController.text);
                     FirebaseAuth.instance
                         .createUserWithEmailAndPassword(
                             email: widget.email, password: widget.password)

@@ -28,7 +28,7 @@ class AuthService {
       securityAnswer: securityAnswer,
       profilePhoto: '',
       userDescription: '',
-      events: '0'
+      totalEvents: '0',
     );
     try {
       http.Response res = await http.post(
@@ -48,11 +48,16 @@ class AuthService {
             // Provider.of<UserProvider>(context, listen: false)
             //     .setUser(userModel)
           });
+          prefs.setString('userEmail',email).then((value) => {
+            print(prefs.getString('userEmail')),
+            // Provider.of<UserProvider>(context, listen: false)
+            //     .setUser(userModel)
+          });
         },
       );
     } catch (e) {
       if (kDebugMode) {
-        // print(e);
+        print(e);
       }
     }
     return user;
