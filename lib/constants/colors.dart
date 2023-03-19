@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 @immutable
 //Local URL
-const String uri = 'http://192.168.163.180:5000/evento';
+// This uri string only work when backend is fetched
+// If you want to use this first get the backend repo and start the backend and change the ip address
+const String uri = 'http://192.168.163.103:5000/evento';
 class AppColors {
   static const colors = AppColors();
 

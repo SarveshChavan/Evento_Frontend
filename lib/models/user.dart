@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class User{
   String ? email;
   String ? userName;
-  String ? events;
+  String ? totalEvents;
   String ? password;
   String ? securityQuestion;
   String ? securityAnswer;
@@ -18,7 +18,7 @@ class User{
     this.securityQuestion,
     this.userName,
     this.userDescription,
-    this.events
+    this.totalEvents
   });
   factory User.fromJson(Map<String,dynamic> map){
     return User(
@@ -29,7 +29,7 @@ class User{
       securityAnswer: map['securityAnswer'],
       profilePhoto: map['profilePhoto'],
       userDescription: map['userDescription'],
-      events:map['events']
+      totalEvents:map['events']
     );
   }
   Map<String,dynamic> toJson(){
@@ -41,7 +41,7 @@ class User{
       "securityQuestion":securityQuestion,
       "securityAnswer":securityAnswer,
       "profilePhoto":profilePhoto,
-      "events":events
+      "events":totalEvents
     };
   }
 }

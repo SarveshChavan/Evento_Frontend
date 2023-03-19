@@ -1,3 +1,4 @@
+import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
@@ -18,8 +19,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,6 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               print("Error ${error.toString()}");
                               throw Future.error(error!);
                             });
+                            AuthService().loginUser(context: context, email: _emailTextController.text, password: _passwordTextController.text);
                             Navigator.pushNamed(
                                 context, bottomnavigation_bar.routeName);
                           },
