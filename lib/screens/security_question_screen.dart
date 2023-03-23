@@ -96,6 +96,14 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                   onTap: () {
                     print(question_selected.selectedQuestion);
                     print(_answerTextController.text);
+                    FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                        email: widget.email, password: widget.password)
+                        .then((value) {
+                      print("Created acc");
+                    }).onError((error, stackTrace) {
+                      print("Error ${error.toString()}");
+                    });
                     //TODO: remove shared prefs string before calling register user
                     AuthService().registerUser(
                         context: context,
@@ -105,14 +113,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                         securityQuestion:
                             question_selected.selectedQuestion.toString(),
                         securityAnswer: _answerTextController.text);
-                    FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                            email: widget.email, password: widget.password)
-                        .then((value) {
-                      print("Created acc");
-                    }).onError((error, stackTrace) {
-                      print("Error ${error.toString()}");
-                    });
+
                     Navigator.pushNamed(context, ongoingScreen.routeName);
                   },
                 ),

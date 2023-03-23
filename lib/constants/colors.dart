@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // This uri string only work when backend is fetched
 // If you want to use this first get the backend repo and start the backend and change the ip address
 const String uri = 'http://192.168.163.103:5000/evento';
+// const String uri='https://evento-01og.onrender.com/evento';
 class AppColors {
   static const colors = AppColors();
 
