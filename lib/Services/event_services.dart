@@ -94,4 +94,37 @@ class EventServices{
       }
     }
   }
+
+  Future<void> deleteEvent({
+    required BuildContext context,
+    required String eventId,
+    // required Function onFetch,
+  }) async {
+    // String uid = prefs.getString('auth-token') ?? '';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token= prefs.getString('token')!;
+    String userEmail=prefs.getString('userEmail')!;
+    try {
+      http.Response res = await http.delete(
+        Uri.parse('$uri/event?eventId=$eventId'),
+        headers: <String, String>{
+          'api_key':'123456',
+          'authorization':'Bearer $userEmail',
+          'token':token,
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print('Event deleted');
+          //TODO: First change the status in provider and then backend status
+        },
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
 }
