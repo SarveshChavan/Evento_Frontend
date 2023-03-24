@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Event{
+  String ? id;
   String ? hostEmail;
   String ? eventName;
   String ? category;
@@ -12,6 +13,7 @@ class Event{
   String ? eventDescription;
 
   Event({
+    this.id,
     this.hostEmail,
     this.eventName,
     this.category,
@@ -24,6 +26,7 @@ class Event{
   });
   factory Event.fromJson(Map<String,dynamic> map){
     return Event(
+        id: map['_id']??'',
         hostEmail: map["hostEmail"],
         eventName: map['eventName'],
         category: map['category'],
@@ -37,6 +40,7 @@ class Event{
   }
   Map<String,dynamic> toJson(){
     return{
+      "id":id,
       "hostEmail":hostEmail,
       "eventName":eventName,
       "category":category,
