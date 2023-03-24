@@ -34,25 +34,25 @@ class AuthService {
       http.Response res = await http.post(
         Uri.parse('$uri/register'),
         body: user.toJson(),
-        headers: <String, String>{
-          'api_key':'123456'
-        },
+        headers: <String, String>{'api_key': '123456'},
       );
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
           User userModel = User.fromJson(jsonDecode(res.body)['user']);
-          prefs.setString('token',jsonDecode(res.body)['token'] ).then((value) => {
-            print(prefs.getString('token')),
-            // Provider.of<UserProvider>(context, listen: false)
-            //     .setUser(userModel)
-          });
-          prefs.setString('userEmail',email).then((value) => {
-            print(prefs.getString('userEmail')),
-            // Provider.of<UserProvider>(context, listen: false)
-            //     .setUser(userModel)
-          });
+          prefs
+              .setString('token', jsonDecode(res.body)['token'])
+              .then((value) => {
+                    print(prefs.getString('token')),
+                    // Provider.of<UserProvider>(context, listen: false)
+                    //     .setUser(userModel)
+                  });
+          prefs.setString('userEmail', email).then((value) => {
+                print(prefs.getString('userEmail')),
+                // Provider.of<UserProvider>(context, listen: false)
+                //     .setUser(userModel)
+              });
         },
       );
     } catch (e) {
@@ -76,10 +76,9 @@ class AuthService {
       http.Response res = await http.post(
         Uri.parse('$uri/login?email=$email&password=$password'),
         headers: <String, String>{
-          'api_key':'123456',
-          'authorization':'Bearer $email',
+          'api_key': '123456',
+          'authorization': 'Bearer $email',
         },
-
       );
       httpErrorHandle(
         response: res,
@@ -87,11 +86,13 @@ class AuthService {
         onSuccess: () {
           User userModel = User.fromJson(jsonDecode(res.body)['user']);
           prefs.clear();
-          prefs.setString('token',jsonDecode(res.body)['token'] ).then((value) => {
-            print(prefs.getString('token')),
-            // Provider.of<UserProvider>(context, listen: false)
-            //     .setUser(userModel)
-          });
+          prefs
+              .setString('token', jsonDecode(res.body)['token'])
+              .then((value) => {
+                    print(prefs.getString('token')),
+                    // Provider.of<UserProvider>(context, listen: false)
+                    //     .setUser(userModel)
+                  });
         },
       );
     } catch (e) {
@@ -102,49 +103,52 @@ class AuthService {
     return true;
   }
 
-  Future<bool> checkUser(
-      {required BuildContext context, required String email,}) async {
+  Future<bool> checkUser({
+    required BuildContext context,
+    required String email,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token= prefs.getString('token')!;
+    String token = prefs.getString('token')!;
     http.Response res = await http.get(
       Uri.parse('$uri/user'),
       headers: <String, String>{
-        'authorization':'Bearer $email',
-        'api_key':'123456',
+        'authorization': 'Bearer $email',
+        'api_key': '123456',
         'token': token
       },
     );
     return jsonDecode(res.body)['isUser'];
   }
 
-  Future<bool> updateUser({
+  Future<void> updateUser({
     required BuildContext context,
     required String email,
+    required String password,
+    required String profilePhoto,
+    required String userDescription
     // required Function onFetch,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // String uid = prefs.getString('auth-token') ?? '';
-
+    String? token= prefs.getString('token');
     try {
       http.Response res = await http.put(
-        Uri.parse('$uri/user?email=$email'),
-        headers: <String, String>{
-          'api_key':'123456',
-          'authorization':'Bearer $email',
+        Uri.parse('$uri/user?email=$email&password=$password'),
+        body: {
+          'profilePhoto':profilePhoto,
+          'userDescription':userDescription
         },
-
+        headers: <String, String>{
+          'api_key': '123456',
+          'authorization': 'Bearer $email',
+          'token':token.toString()
+        },
       );
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          User userModel = User.fromJson(jsonDecode(res.body)['user']);
-          prefs.clear();
-          prefs.setString('token',jsonDecode(res.body)['token'] ).then((value) => {
-            print(prefs.getString('token')),
-            // Provider.of<UserProvider>(context, listen: false)
-            //     .setUser(userModel)
-          });
+          print('user updated');
         },
       );
     } catch (e) {
@@ -152,9 +156,50 @@ class AuthService {
         print(e);
       }
     }
-    return true;
+  }
+
+  Future<void> changePassword({
+    required BuildContext context,
+    required String email,
+    required String securityQuestion,
+    required String securityAnswer,
+    required String newPassword,
+    // required Function onFetch,
+  }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // String uid = prefs.getString('auth-token') ?? '';
+    String token= prefs.getString('token')!;
+    try {
+      http.Response res = await http.put(
+        Uri.parse('$uri/password?email=$email'),
+        body: {
+          'securityQuestion':securityQuestion,
+          'securityAnswer':securityAnswer,
+          'newPassword':newPassword
+        },
+        headers: <String, String>{
+          'api_key': '123456',
+          'authorization': 'Bearer $email',
+          'token':token
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print('Password Updated in mongo');
+          print(jsonDecode(res.body)['password']);
+        },
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 }
+
+
 
 void test() async {
   http.Response res = await http.get(Uri.parse('$uri/'));

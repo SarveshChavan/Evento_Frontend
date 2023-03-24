@@ -61,6 +61,7 @@ class EventServices{
     }
     return event;
   }
+
   Future<void> endEvent({
     required BuildContext context,
     required String id,
@@ -118,6 +119,137 @@ class EventServices{
         context: context,
         onSuccess: () {
           print('Event deleted');
+          //TODO: First change the status in provider and then backend status
+        },
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  Future<Event> getEventById({
+    required BuildContext context,
+    required String eventId,
+    // required Function onFetch,
+  }) async {
+    Event e= Event();
+    // String uid = prefs.getString('auth-token') ?? '';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token= prefs.getString('token')!;
+    String userEmail=prefs.getString('userEmail')!;
+    try {
+      http.Response res = await http.get(
+        Uri.parse('$uri/event?eventId=$eventId'),
+        headers: <String, String>{
+          'api_key':'123456',
+          'authorization':'Bearer $userEmail',
+          'token':token,
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print('Event got by id');
+          e=Event.fromJson(jsonDecode(res.body)['eventDetails']);
+          print(e.hostEmail);
+          //TODO: First change the status in provider and then backend status
+        },
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+    return e;
+  }
+
+  Future<Event> getEvents({
+    required BuildContext context,
+    required String email,
+    required String type
+    // required Function onFetch,
+  }) async {
+    Event e= Event();
+    // String uid = prefs.getString('auth-token') ?? '';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token= prefs.getString('token')!;
+    String userEmail=prefs.getString('userEmail')!;
+    try {
+      http.Response res = await http.get(
+        Uri.parse('$uri/event/type?email=$email&type=$type'),
+        headers: <String, String>{
+          'api_key':'123456',
+          'authorization':'Bearer $userEmail',
+          'token':token,
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print('Events got');
+          e=Event.fromJson(jsonDecode(res.body)['events']);
+          print(jsonDecode(res.body)['events']);
+          //TODO: First change the status in provider and then backend status
+        },
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+    return e;
+  }
+
+  Future<void> updateEvent({
+    required BuildContext context,
+    required String eventId,
+    required String eventName,
+    required String category,
+    required String hostEmail,
+    required String address,
+    required String isFree,
+    required String eventDataTime,
+    required String eventStatus,
+    required String eventDescription,
+    required String eventPhoto,
+    // required Function onFetch,
+  }) async {
+    // String uid = prefs.getString('auth-token') ?? '';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token= prefs.getString('token')!;
+    String userEmail=prefs.getString('userEmail')!;
+    Event event = Event(
+      id: eventId,
+        hostEmail: hostEmail,
+        eventName: eventName,
+        category:category,
+        address: address,
+        isFree: isFree,
+        eventDateTime: eventDataTime,
+        eventPhoto: eventPhoto,
+        eventStatus: eventStatus,
+        eventDescription: eventDescription
+    );
+    try {
+      http.Response res = await http.put(
+        Uri.parse('$uri/event?eventId=$eventId'),
+        body:event.toJson(),
+        headers: <String, String>{
+          'api_key':'123456',
+          'authorization':'Bearer $userEmail',
+          'token':token,
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print('Event Updated');
+          print(jsonDecode(res.body)['updatedEvent']);
           //TODO: First change the status in provider and then backend status
         },
       );
