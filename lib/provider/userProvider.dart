@@ -1,8 +1,47 @@
 import 'package:events/models/user.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider with ChangeNotifier{
-  void addUser(User user){
-
+  EventoUser _user=EventoUser(
+    email: '',
+    userName: '',
+    totalEvents: '',
+    password: '',
+    securityQuestion: '',
+    securityAnswer: '',
+    profilePhoto: '',
+    userDescription: '',
+  );
+  void createUser(EventoUser user){
+    _user=user;
+    print(_user.userName);
+    notifyListeners();
+  }
+  void updateUser(EventoUser user){
+    _user=user;
+    notifyListeners();
+  }
+  Future<void> logout() async {
+    _user=EventoUser(
+      email: '',
+      userName: '',
+      totalEvents: '',
+      password: '',
+      securityQuestion: '',
+      securityAnswer: '',
+      profilePhoto: '',
+      userDescription: '',
+    );
+    notifyListeners();
+  }
+  EventoUser getUser(){
+    return _user;
+  }
+  String getProfilePhoto(){
+    return _user.profilePhoto.toString();
+  }
+  String getUserDescription(){
+    return _user.userDescription.toString();
   }
 }

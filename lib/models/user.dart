@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class User{
+class EventoUser{
   String ? email;
   String ? userName;
   String ? totalEvents;
@@ -10,7 +10,7 @@ class User{
   String ? profilePhoto;
   String ? userDescription;
 
-  User({
+  EventoUser({
     this.email,
     this.password,
     this.profilePhoto,
@@ -20,8 +20,8 @@ class User{
     this.userDescription,
     this.totalEvents
   });
-  factory User.fromJson(Map<String,dynamic> map){
-    return User(
+  factory EventoUser.fromJson(Map<String,dynamic> map){
+    return EventoUser(
       email: map["email"],
       userName: map['userName'],
       password: map['password'],
@@ -29,7 +29,7 @@ class User{
       securityAnswer: map['securityAnswer'],
       profilePhoto: map['profilePhoto'],
       userDescription: map['userDescription'],
-      totalEvents:map['events']
+      totalEvents:map['totalEvents']
     );
   }
   Map<String,dynamic> toJson(){
@@ -43,5 +43,28 @@ class User{
       "profilePhoto":profilePhoto,
       "events":totalEvents
     };
+  }
+  EventoUser copyWith(
+      {
+        String? email,
+        String? userName,
+        String? userDescription,
+        String? password,
+        String? securityQuestion,
+        String? profilePhoto,
+        String? securityAnswer,
+        String? totalEvents,
+        }) {
+    return EventoUser(
+        email: email??this.email,
+        userName: userName??this.userName,
+        password: userDescription??this.userDescription,
+        securityQuestion: securityQuestion??this.securityQuestion,
+        securityAnswer: securityAnswer??this.securityAnswer,
+        profilePhoto:profilePhoto??this.profilePhoto,
+        userDescription: userDescription??this.userDescription,
+        totalEvents:totalEvents??this.totalEvents
+    );
+
   }
 }

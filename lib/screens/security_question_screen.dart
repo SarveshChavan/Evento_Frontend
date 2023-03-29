@@ -1,8 +1,9 @@
 import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
+import 'package:events/screens/bottomNavgation_bar.dart';
 import 'package:events/screens/ongoing_screen.dart';
-import 'package:events/screens/signin_screen.dart';
+import 'package:events/screens/profile_details.dart';
 import 'package:events/widgets/security_question_dropdown.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -93,7 +94,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                 child: LogInSignUpButton(
                   text: 'Signup',
                   isLogin: false,
-                  onTap: () {
+                  onTap: () async {
                     print(question_selected.selectedQuestion);
                     print(_answerTextController.text);
                     FirebaseAuth.instance
@@ -104,8 +105,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                     }).onError((error, stackTrace) {
                       print("Error ${error.toString()}");
                     });
-                    //TODO: remove shared prefs string before calling register user
-                    AuthService().registerUser(
+                    await AuthService().registerUser(
                         context: context,
                         userName: widget.userName,
                         email: widget.email,
@@ -113,8 +113,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                         securityQuestion:
                             question_selected.selectedQuestion.toString(),
                         securityAnswer: _answerTextController.text);
-
-                    Navigator.pushNamed(context, ongoingScreen.routeName);
+                    Navigator.pushNamed(context, bottomnavigation_bar.routeName);
                   },
                 ),
               ),
