@@ -2,13 +2,15 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/colors.dart';
 import '../constants/handler.dart';
 import '../models/user.dart';
+import '../provider/userProvider.dart';
 
 class AuthService {
-  Future<User> registerUser({
+  Future<EventoUser> registerUser({
     required BuildContext context,
     required String userName,
     required String email,
@@ -19,8 +21,8 @@ class AuthService {
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // String uid = prefs.getString('auth-token') ?? '';
-
-    User user = User(
+    prefs.clear();
+    EventoUser user = EventoUser(
       email: email,
       userName: userName,
       password: password,
@@ -40,19 +42,18 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () {
-          User userModel = User.fromJson(jsonDecode(res.body)['user']);
+          EventoUser userModel =
+              EventoUser.fromJson(jsonDecode(res.body)['user']);
           prefs
               .setString('token', jsonDecode(res.body)['token'])
               .then((value) => {
                     print(prefs.getString('token')),
-                    // Provider.of<UserProvider>(context, listen: false)
-                    //     .setUser(userModel)
+                    prefs.setString('userEmail', email).then((value) => {
+                          print(prefs.getString('userEmail')),
+                          Provider.of<UserProvider>(context, listen: false)
+                              .createUser(userModel)
+                        })
                   });
-          prefs.setString('userEmail', email).then((value) => {
-                print(prefs.getString('userEmail')),
-                // Provider.of<UserProvider>(context, listen: false)
-                //     .setUser(userModel)
-              });
         },
       );
     } catch (e) {
@@ -84,14 +85,18 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () {
-          User userModel = User.fromJson(jsonDecode(res.body)['user']);
+          EventoUser userModel =
+              EventoUser.fromJson(jsonDecode(res.body)['user']);
           prefs.clear();
           prefs
               .setString('token', jsonDecode(res.body)['token'])
               .then((value) => {
                     print(prefs.getString('token')),
-                    // Provider.of<UserProvider>(context, listen: false)
-                    //     .setUser(userModel)
+                    prefs.setString('userEmail', email).then((value) => {
+                          print(prefs.getString('userEmail')),
+                          Provider.of<UserProvider>(context, listen: false)
+                              .createUser(userModel)
+                        })
                   });
         },
       );
@@ -120,34 +125,37 @@ class AuthService {
     return jsonDecode(res.body)['isUser'];
   }
 
-  Future<void> updateUser({
-    required BuildContext context,
-    required String email,
-    required String password,
-    required String profilePhoto,
-    required String userDescription
-    // required Function onFetch,
-  }) async {
+  Future<void> updateUser(
+      {required BuildContext context,
+      required String email,
+      required String profilePhoto,
+      required String userDescription
+      // required Function onFetch,
+      }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // String uid = prefs.getString('auth-token') ?? '';
-    String? token= prefs.getString('token');
+    String? token = prefs.getString('token');
     try {
       http.Response res = await http.put(
-        Uri.parse('$uri/user?email=$email&password=$password'),
+        Uri.parse('$uri/user?email=$email'),
         body: {
-          'profilePhoto':profilePhoto,
-          'userDescription':userDescription
+          'profilePhoto': profilePhoto,
+          'userDescription': userDescription
         },
         headers: <String, String>{
           'api_key': '123456',
           'authorization': 'Bearer $email',
-          'token':token.toString()
+          'token': token.toString()
         },
       );
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
+          EventoUser userModel =
+              EventoUser.fromJson(jsonDecode(res.body)['user']);
+          Provider.of<UserProvider>(context, listen: false)
+              .updateUser(userModel);
           print('user updated');
         },
       );
@@ -168,19 +176,19 @@ class AuthService {
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // String uid = prefs.getString('auth-token') ?? '';
-    String token= prefs.getString('token')!;
+    String token = prefs.getString('token')!;
     try {
       http.Response res = await http.put(
         Uri.parse('$uri/password?email=$email'),
         body: {
-          'securityQuestion':securityQuestion,
-          'securityAnswer':securityAnswer,
-          'newPassword':newPassword
+          'securityQuestion': securityQuestion,
+          'securityAnswer': securityAnswer,
+          'newPassword': newPassword
         },
         headers: <String, String>{
           'api_key': '123456',
           'authorization': 'Bearer $email',
-          'token':token
+          'token': token
         },
       );
       httpErrorHandle(
@@ -198,8 +206,6 @@ class AuthService {
     }
   }
 }
-
-
 
 void test() async {
   http.Response res = await http.get(Uri.parse('$uri/'));

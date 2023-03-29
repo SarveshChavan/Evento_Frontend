@@ -3,6 +3,7 @@ import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
 import 'package:events/screens/ongoing_screen.dart';
+import 'package:events/screens/profile_details.dart';
 import 'package:events/screens/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -96,15 +97,13 @@ class _SignInScreenState extends State<SignInScreen> {
                                     password: _passwordTextController.text)
                                 .then((value) => {
                                       Navigator.pushNamed(
-                                          context, ongoingScreen.routeName),
+                                          context, ProfileDetails.routeName),
                                     })
                                 .onError((error, stackTrace) {
                               print("Error ${error.toString()}");
                               throw Future.error(error!);
                             });
                             AuthService().loginUser(context: context, email: _emailTextController.text, password: _passwordTextController.text);
-                            Navigator.pushNamed(
-                                context, bottomnavigation_bar.routeName);
                           },
                         ),
                       ],

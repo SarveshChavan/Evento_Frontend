@@ -39,11 +39,10 @@ class _CustomShapeProfileState extends State<CustomShapeProfile> {
                       radius: 70,
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
-                          child: widget.img==null?Image(image: NetworkImage(widget.photoUrl)):Image.file(
-                            File(widget.img!.path),
-                            fit: BoxFit.cover,
-                            height: 140,
-                            width: 140,
+                          child: CircleAvatar(
+                            backgroundColor: AppColors.colors.lightShade,
+                            backgroundImage:  NetworkImage(widget.photoUrl),
+                            radius: 140,
                           )),
                     ),
                   ),
