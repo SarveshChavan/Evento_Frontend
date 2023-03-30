@@ -2,11 +2,9 @@ import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
-import 'package:events/screens/event/ongoing_screen.dart';
 import 'package:events/screens/profile/profile_details.dart';
 import 'package:events/screens/authentication/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/login_signup_button.dart';
@@ -91,45 +89,49 @@ class _SignInScreenState extends State<SignInScreen> {
                           text: 'Login',
                           isLogin: true,
                           onTap: () {
-                            FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
+                            AuthService()
+                                .loginUser(
+                                    context: context,
                                     email: _emailTextController.text,
                                     password: _passwordTextController.text)
                                 .then((value) => {
                                       Navigator.pushNamed(
-                                          context, ProfileDetails.routeName),
+                                          context, bottomnavigation_bar.routeName),
                                     })
                                 .onError((error, stackTrace) {
                               print("Error ${error.toString()}");
                               throw Future.error(error!);
                             });
-                            AuthService().loginUser(context: context, email: _emailTextController.text, password: _passwordTextController.text);
                           },
                         ),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.075,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text("Don't have an account? ",
-                          style: appTheme().textTheme.headline3?.copyWith(
-                                fontSize: 16,
-                              )),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, SignUpScreen.routeName);
-                        },
-                        child: Text("Sign Up",
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Don't have an account? ",
                             style: appTheme().textTheme.headline3?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: AppColors().brown)),
-                      )
-                    ],
+                                  fontSize: 16,
+                                )),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, SignUpScreen.routeName);
+                          },
+                          child: Text("Sign Up",
+                              style: appTheme().textTheme.headline3?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: AppColors().brown)),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

@@ -1,13 +1,14 @@
 import 'dart:io';
-
 import 'package:events/Services/auth_services.dart';
+import 'package:events/constants/handler.dart';
 import 'package:events/widgets/custom_shape_profile.dart';
 import 'package:events/widgets/security_question_dropdown.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
 import '../../constants/theme.dart';
+import '../../models/user.dart';
+import '../../provider/userProvider.dart';
 import '../../widgets/login_signup_button.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -20,29 +21,26 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   late double width;
-  String userName = 'Red Hair Shanks';
-  String photoUrl = 'https://avatarfiles.alphacoders.com/206/thumb-206822.jpg';
+  late String userName;
+  late String userEmail;
+  late String photoUrl;
   TextEditingController _answerTextController = TextEditingController();
   TextEditingController _newPassTextController = TextEditingController();
   SecurityDropDown question_selected = new SecurityDropDown();
-  bool isCorrect = true;
-  var auth = FirebaseAuth.instance;
-  var currentUser = FirebaseAuth.instance.currentUser;
+  bool isCorrect = false;
+  EventoUser user = EventoUser();
 
-  changePassword({email, oldPassword, newPassword}) async {
-    final user = await FirebaseAuth.instance.currentUser;
-    final cred = EmailAuthProvider.credential(
-        email: user!.email.toString(), password: oldPassword);
-    user?.reauthenticateWithCredential(cred).then((value) {
-      user.updatePassword(newPassword).then((_) {
-        //Success, do something
-        print('Changed In Firebase');
-      }).catchError((error) {
-        //Error, show something
-        print(error.toString());
-      });
-    }).catchError((err) {
-      print(err.toString());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      user = Provider.of<UserProvider>(context, listen: false).getUser();
+      photoUrl = user.profilePhoto == "" ? photoUrl : user.profilePhoto!;
+      userName = user.userName!;
+      userEmail = user.email!;
+      userName = user.userName!;
     });
   }
 
@@ -124,8 +122,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                       text: 'Check',
                       isLogin: false,
                       onTap: () {
-                        print(question_selected.selectedQuestion);
-                        print(_answerTextController.text);
+                        if (question_selected.selectedQuestion.toString() ==
+                                user.securityQuestion &&
+                            _answerTextController.text == user.securityAnswer) {
+                          setState(() {
+                            isCorrect = true;
+                          });
+                        } else {
+                          showSnackBar(context, 'Wrong Details', true);
+                        }
                       },
                     ),
                   ),
@@ -165,15 +170,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                       isLogin: false,
                       onTap: isCorrect
                           ? () async {
-                              print(question_selected.selectedQuestion);
-                              print(_answerTextController.text);
-                              await changePassword(
-                                  email: 'lomeshwagh98@gmail.con',// Take email from provider
-                                  oldPassword: 'Wagh99',// take from provider
-                                  newPassword: _newPassTextController.text);
                               AuthService().changePassword(
                                   context: context,
-                                  email: 'lomeshwagh98@gmail.con',// Take email from provider
+                                  email: userEmail,
                                   securityQuestion: question_selected
                                       .selectedQuestion
                                       .toString(),

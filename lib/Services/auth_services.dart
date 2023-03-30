@@ -110,19 +110,41 @@ class AuthService {
 
   Future<bool> checkUser({
     required BuildContext context,
-    required String email,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token')!;
-    http.Response res = await http.get(
-      Uri.parse('$uri/user'),
-      headers: <String, String>{
-        'authorization': 'Bearer $email',
-        'api_key': '123456',
-        'token': token
-      },
-    );
-    return jsonDecode(res.body)['isUser'];
+    String token = prefs.getString('token')??'';
+    String userEmail = prefs.getString('userEmail')??'';
+    late bool isUser;
+    if (token == '' || userEmail == '') {
+      return false;
+    } else {
+      try {
+        http.Response res = await http.get(
+          Uri.parse('$uri/user'),
+          headers: <String, String>{
+            'authorization': 'Bearer $userEmail',
+            'api_key': '123456',
+            'token': token
+          },
+        );
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            EventoUser userModel =
+                EventoUser.fromJson(jsonDecode(res.body)['user']);
+            Provider.of<UserProvider>(context, listen: false)
+                .createUser(userModel);
+            isUser = (jsonDecode(res.body)['isUser']);
+          },
+        );
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    }
+    return isUser;
   }
 
   Future<void> updateUser(

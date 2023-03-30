@@ -2,10 +2,7 @@ import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
-import 'package:events/screens/event/ongoing_screen.dart';
-import 'package:events/screens/profile/profile_details.dart';
 import 'package:events/widgets/security_question_dropdown.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -97,23 +94,23 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                   onTap: () async {
                     print(question_selected.selectedQuestion);
                     print(_answerTextController.text);
-                    FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                        email: widget.email, password: widget.password)
-                        .then((value) {
-                      print("Created acc");
-                    }).onError((error, stackTrace) {
+                    await AuthService()
+                        .registerUser(
+                            context: context,
+                            userName: widget.userName,
+                            email: widget.email,
+                            password: widget.password,
+                            securityQuestion:
+                                question_selected.selectedQuestion.toString(),
+                            securityAnswer: _answerTextController.text)
+                        .then((value) => {
+                              Navigator.pushNamed(
+                                  context, bottomnavigation_bar.routeName)
+                            })
+                        .onError((error, stackTrace) {
                       print("Error ${error.toString()}");
+                      throw Future.error(error!);
                     });
-                    await AuthService().registerUser(
-                        context: context,
-                        userName: widget.userName,
-                        email: widget.email,
-                        password: widget.password,
-                        securityQuestion:
-                            question_selected.selectedQuestion.toString(),
-                        securityAnswer: _answerTextController.text);
-                    Navigator.pushNamed(context, bottomnavigation_bar.routeName);
                   },
                 ),
               ),
