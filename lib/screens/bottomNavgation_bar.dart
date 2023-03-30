@@ -1,6 +1,6 @@
 import 'package:events/constants/colors.dart';
 import 'package:events/screens/menu_screen.dart';
-import 'package:events/screens/profilemain_screen.dart';
+import 'package:events/screens/profile/profile_details.dart';
 import 'package:flutter/material.dart';
 
 class bottomnavigation_bar extends StatefulWidget {
@@ -15,7 +15,7 @@ class _bottomnavigation_barState extends State<bottomnavigation_bar> {
 int currenttab=0;
   final List<Widget> screen=[
     menuScreen(),
-    profilemain_Screen(),
+    ProfileDetails(),
   ];
   Widget currentScreen=menuScreen();
   final PageStorageBucket bucket=PageStorageBucket();
@@ -80,7 +80,7 @@ int currenttab=0;
                     onPressed: (){
 
                       setState(() {
-                        currentScreen=profilemain_Screen();
+                        currentScreen=ProfileDetails();
                         currenttab=1;
                       });
 

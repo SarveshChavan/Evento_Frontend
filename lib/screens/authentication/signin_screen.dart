@@ -2,14 +2,14 @@ import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
-import 'package:events/screens/ongoing_screen.dart';
-import 'package:events/screens/profile_details.dart';
-import 'package:events/screens/signup_screen.dart';
+import 'package:events/screens/event/ongoing_screen.dart';
+import 'package:events/screens/profile/profile_details.dart';
+import 'package:events/screens/authentication/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../widgets/custom_text_field.dart';
-import '../widgets/login_signup_button.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../widgets/login_signup_button.dart';
 
 class SignInScreen extends StatefulWidget {
   static const routeName = "SignInScreen";

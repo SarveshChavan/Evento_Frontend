@@ -2,14 +2,14 @@ import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
-import 'package:events/screens/ongoing_screen.dart';
-import 'package:events/screens/profile_details.dart';
+import 'package:events/screens/event/ongoing_screen.dart';
+import 'package:events/screens/profile/profile_details.dart';
 import 'package:events/widgets/security_question_dropdown.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/login_signup_button.dart';
+import '../../widgets/login_signup_button.dart';
 
 class SecurityQuestion extends StatefulWidget {
   static const routeName = 'SecurityQuestion';
