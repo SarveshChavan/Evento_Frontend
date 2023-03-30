@@ -1,6 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
-import '../widgets/newevent_cards.dart';
+import '../../widgets/newevent_cards.dart';
 
 class ongoingScreen extends StatefulWidget {
   static const routeName = 'ongoingScreen';

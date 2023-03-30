@@ -6,9 +6,9 @@ import 'package:events/widgets/security_question_dropdown.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-import '../constants/theme.dart';
-import '../widgets/login_signup_button.dart';
+import '../../constants/colors.dart';
+import '../../constants/theme.dart';
+import '../../widgets/login_signup_button.dart';
 
 class ChangePassword extends StatefulWidget {
   static const routeName = "ChangePassword";

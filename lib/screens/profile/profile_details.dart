@@ -5,10 +5,10 @@ import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/models/user.dart';
 import 'package:events/provider/userProvider.dart';
-import 'package:events/screens/change_password.dart';
-import 'package:events/screens/custom_shape.dart';
-import 'package:events/screens/signin_screen.dart';
-import 'package:events/screens/signin_screen.dart';
+import 'package:events/screens/profile/change_password.dart';
+import 'package:events/widgets/custom_shape.dart';
+import 'package:events/screens/authentication/signin_screen.dart';
+import 'package:events/screens/authentication/signin_screen.dart';
 import 'package:events/widgets/custom_shape_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import 'signin_screen.dart';
+import '../authentication/signin_screen.dart';
 
 class ProfileDetails extends StatefulWidget {
   static const routeName = "ProfileDetails";

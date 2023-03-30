@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 import '../constants/theme.dart';
-import '../screens/custom_shape.dart';
+import 'custom_shape.dart';
 
 class CustomShapeProfile extends StatefulWidget {
   const CustomShapeProfile({Key? key, required this.width, this.img, this.pickImage, required this.userName, required this.photoUrl, this.isProfilePhotoChange=true, }) : super(key: key);

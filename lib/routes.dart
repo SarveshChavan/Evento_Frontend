@@ -1,11 +1,10 @@
 import 'package:events/screens/bottomNavgation_bar.dart';
-import 'package:events/screens/change_password.dart';
-import 'package:events/screens/ongoing_screen.dart';
-import 'package:events/screens/profile_details.dart';
-import 'package:events/screens/profile_screen.dart';
-import 'package:events/screens/security_question_screen.dart';
-import 'package:events/screens/signin_screen.dart';
-import 'package:events/screens/signup_screen.dart';
+import 'package:events/screens/profile/change_password.dart';
+import 'package:events/screens/event/ongoing_screen.dart';
+import 'package:events/screens/profile/profile_details.dart';
+import 'package:events/screens/authentication/security_question_screen.dart';
+import 'package:events/screens/authentication/signin_screen.dart';
+import 'package:events/screens/authentication/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -22,10 +21,6 @@ class Routes {
       case ongoingScreen.routeName:
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => ongoingScreen());
-
-      case Profilescreen.routeName:
-        return MaterialPageRoute(
-            settings: routeSettings, builder: (_) => Profilescreen());
             
       case SecurityQuestion.routeName:
         var args = routeSettings.arguments as Map;

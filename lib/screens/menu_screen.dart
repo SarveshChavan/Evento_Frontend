@@ -1,6 +1,6 @@
-import 'package:events/screens/ongoing_screen.dart';
-import 'package:events/screens/pastevent_screen.dart';
-import 'package:events/screens/upcomingevent_screen.dart';
+import 'package:events/screens/event/ongoing_screen.dart';
+import 'package:events/screens/event/pastevent_screen.dart';
+import 'package:events/screens/event/upcomingevent_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:events/constants/colors.dart';
 class menuScreen extends StatefulWidget {
