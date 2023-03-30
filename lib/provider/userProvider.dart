@@ -23,6 +23,8 @@ class UserProvider with ChangeNotifier{
     notifyListeners();
   }
   Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
     _user=EventoUser(
       email: '',
       userName: '',

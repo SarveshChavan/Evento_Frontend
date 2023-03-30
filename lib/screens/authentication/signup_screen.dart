@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.075,
               ),
               Center(
                   child: Column(
