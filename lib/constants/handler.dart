@@ -13,7 +13,11 @@ void httpErrorHandle({
       break;
     case 403:
       showSnackBar(
-          context, 'You are not authorized to perform this action', true);
+          context, jsonDecode(response.body)['message']??'You are not authorized to perform this action', true);
+      break;
+    case 404:
+      showSnackBar(
+          context, jsonDecode(response.body)['message']??'You are not authorized to perform this action', true);
       break;
     case 400:
       showSnackBar(context,
@@ -23,7 +27,7 @@ void httpErrorHandle({
       showSnackBar(context, 'Server error', true);
       break;
     default:
-      showSnackBar(context, response.body, true);
+      showSnackBar(context, jsonDecode(response.body)['message'] , true);
   }
 }
 void showSnackBar(BuildContext context, String text, bool isError) {
