@@ -1,11 +1,13 @@
 import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
+import 'package:events/constants/handler.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
 import 'package:events/screens/profile/profile_details.dart';
 import 'package:events/screens/authentication/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/login_signup_button.dart';
 
@@ -20,6 +22,9 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+
+  late SharedPreferences prefs;
+  late String token;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,20 +93,19 @@ class _SignInScreenState extends State<SignInScreen> {
                         LogInSignUpButton(
                           text: 'Login',
                           isLogin: true,
-                          onTap: () {
-                            AuthService()
-                                .loginUser(
-                                    context: context,
-                                    email: _emailTextController.text,
-                                    password: _passwordTextController.text)
-                                .then((value) => {
-                                      Navigator.pushNamed(
-                                          context, bottomnavigation_bar.routeName),
-                                    })
-                                .onError((error, stackTrace) {
-                              print("Error ${error.toString()}");
-                              throw Future.error(error!);
-                            });
+                          onTap: () async {
+                            await AuthService().loginUser(
+                                context: context,
+                                email: _emailTextController.text,
+                                password: _passwordTextController.text);
+                            prefs = await SharedPreferences.getInstance();
+                            token = prefs.getString('token') ?? '';
+                            if (token != null && token != '') {
+                              Navigator.pushNamed(
+                                  context, bottomnavigation_bar.routeName);
+                            }else{
+                              Navigator.pushNamed(context, SignUpScreen.routeName);
+                            }
                           },
                         ),
                       ],

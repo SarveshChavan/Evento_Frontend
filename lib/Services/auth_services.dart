@@ -102,6 +102,7 @@ class AuthService {
       );
     } catch (e) {
       if (kDebugMode) {
+        showSnackBar(context, 'User not found', true);
         print(e);
       }
     }
