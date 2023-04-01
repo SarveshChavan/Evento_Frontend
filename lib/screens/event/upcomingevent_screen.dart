@@ -1,22 +1,17 @@
 import 'dart:core';
-
 import 'package:events/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-
 import '../../widgets/newevent_cards.dart';
 
-
-
-class upcomingeventScreen extends StatefulWidget {
-  const upcomingeventScreen({Key? key}) : super(key: key);
+class UpcomingEventScreen extends StatefulWidget {
+  const UpcomingEventScreen({Key? key}) : super(key: key);
 
   @override
-  State<upcomingeventScreen> createState() => _upcomingeventScreenState();
+  State<UpcomingEventScreen> createState() => _UpcomingEventScreenState();
 }
 
-class _upcomingeventScreenState extends State<upcomingeventScreen> {
+class _UpcomingEventScreenState extends State<UpcomingEventScreen> {
 
 
  String currentDate=DateFormat("dd-MM-yyy").format(DateTime.now());

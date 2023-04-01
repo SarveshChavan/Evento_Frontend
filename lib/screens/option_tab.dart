@@ -1,17 +1,17 @@
-import 'package:events/Event/ongoing_screen.dart';
-import 'package:events/Event/pastevent_screen.dart';
-import 'package:events/Event/upcomingevent_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:events/constants/colors.dart';
+import 'event/ongoing_screen.dart';
+import 'event/pastevent_screen.dart';
+import 'event/upcomingevent_screen.dart';
 
-class TabView extends StatefulWidget {
-  const TabView({Key? key}) : super(key: key);
+class OptionTab extends StatefulWidget {
+  const OptionTab({Key? key}) : super(key: key);
 
   @override
-  State<TabView> createState() => _TabViewState();
+  State<OptionTab> createState() => _OptionTabState();
 }
 
-class _TabViewState extends State<TabView> {
+class _OptionTabState extends State<OptionTab> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

@@ -3,7 +3,7 @@ import 'package:events/Services/auth_services.dart';
 import 'package:events/provider/userProvider.dart';
 import 'package:events/routes.dart';
 import 'package:events/screens/authentication/signin_screen.dart';
-import 'package:events/screens/bottomNavgation_bar.dart';
+import 'package:events/screens/homewrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
                       color: Colors.white,
                       child: const SafeArea(
                         maintainBottomViewPadding: true,
-                        child: bottomnavigation_bar(),
+                        child: HomeWrapper(),
                       ),
                     )
                   : const SafeArea(
