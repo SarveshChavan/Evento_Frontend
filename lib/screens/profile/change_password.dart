@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/handler.dart';
 import 'package:events/widgets/custom_shape_profile.dart';
-import 'package:events/widgets/security_question_dropdown.dart';
+import 'package:events/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
@@ -26,10 +26,16 @@ class _ChangePasswordState extends State<ChangePassword> {
   late String photoUrl;
   TextEditingController _answerTextController = TextEditingController();
   TextEditingController _newPassTextController = TextEditingController();
-  SecurityDropDown question_selected = new SecurityDropDown();
+  CustomDropDown question_selected = CustomDropDown(
+    options: <String>[
+      "Where do you live?",
+      "What is the name of your Crush?",
+      "Which is your favourite Cuisine?",
+      "Your Favorite Movie?"
+    ],
+  );
   bool isCorrect = false;
   EventoUser user = EventoUser();
-
 
   @override
   void initState() {
@@ -122,7 +128,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       text: 'Check',
                       isLogin: false,
                       onTap: () {
-                        if (question_selected.selectedQuestion.toString() ==
+                        if (question_selected.selected.toString() ==
                                 user.securityQuestion &&
                             _answerTextController.text == user.securityAnswer) {
                           setState(() {
@@ -173,9 +179,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                               AuthService().changePassword(
                                   context: context,
                                   email: userEmail,
-                                  securityQuestion: question_selected
-                                      .selectedQuestion
-                                      .toString(),
+                                  securityQuestion:
+                                      question_selected.selected.toString(),
                                   securityAnswer: _answerTextController.text,
                                   newPassword: _newPassTextController.text);
                             }
