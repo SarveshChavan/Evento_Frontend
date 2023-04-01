@@ -2,15 +2,15 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import '../../widgets/newevent_cards.dart';
 
-class ongoingScreen extends StatefulWidget {
+class OngoingScreen extends StatefulWidget {
   static const routeName = 'ongoingScreen';
-  const ongoingScreen({Key? key}) : super(key: key);
+  const OngoingScreen({Key? key}) : super(key: key);
 
   @override
-  State<ongoingScreen> createState() => _ongoingScreenState();
+  State<OngoingScreen> createState() => _OngoingScreenState();
 }
 
-class _ongoingScreenState extends State<ongoingScreen> {
+class _OngoingScreenState extends State<OngoingScreen> {
 
   @override
   Widget build(BuildContext context) {

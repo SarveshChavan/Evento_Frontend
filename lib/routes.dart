@@ -1,4 +1,4 @@
-import 'package:events/screens/bottomNavgation_bar.dart';
+import 'package:events/screens/homewrapper.dart';
 import 'package:events/screens/profile/change_password.dart';
 import 'package:events/screens/event/ongoing_screen.dart';
 import 'package:events/screens/profile/profile_details.dart';
@@ -18,9 +18,9 @@ class Routes {
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => SignInScreen());
 
-      case ongoingScreen.routeName:
+      case OngoingScreen.routeName:
         return MaterialPageRoute(
-            settings: routeSettings, builder: (_) => ongoingScreen());
+            settings: routeSettings, builder: (_) => OngoingScreen());
             
       case SecurityQuestion.routeName:
         var args = routeSettings.arguments as Map;
@@ -36,8 +36,8 @@ class Routes {
         return MaterialPageRoute(
             settings: routeSettings, builder: (_) => ChangePassword());
 
-      case bottomnavigation_bar.routeName:
-        return MaterialPageRoute(builder: (_)=>bottomnavigation_bar());
+      case HomeWrapper.routeName:
+        return MaterialPageRoute(builder: (_)=>HomeWrapper());
 
 
       default: return null;

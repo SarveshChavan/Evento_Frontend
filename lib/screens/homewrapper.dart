@@ -1,12 +1,11 @@
 import 'package:events/constants/colors.dart';
-import 'package:events/screens/menu_screen.dart';
-import 'package:events/screens/profile_details.dart';
-import 'package:events/screens/profilemain_screen.dart';
+import 'package:events/screens/option_tab.dart';
+import 'package:events/screens/profile/profile_details.dart';
 import 'package:flutter/material.dart';
 
 class HomeWrapper extends StatefulWidget {
   const HomeWrapper({Key? key}) : super(key: key);
-  static const String routeName = "homeWrapper";
+  static const String routeName = "HomeWrapper";
   @override
   State<HomeWrapper> createState() => _HomeWrapperState();
 }
@@ -14,11 +13,11 @@ class HomeWrapper extends StatefulWidget {
 class _HomeWrapperState extends State<HomeWrapper> {
   int currenttab = 0;
   final List<Widget> screen = [
-    TabView(),
+    OptionTab(),
     //TODO add hamburger menu instead of profile details
     ProfileDetails(),
   ];
-  Widget currentScreen = TabView();
+  Widget currentScreen = OptionTab();
   final PageStorageBucket bucket = PageStorageBucket();
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
               padding: EdgeInsets.symmetric(horizontal: 30,vertical: 0),
               onPressed: () {
                 setState(() {
-                  currentScreen = TabView();
+                  currentScreen = OptionTab();
                   currenttab = 0;
                 });
               },

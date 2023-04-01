@@ -8,7 +8,7 @@ const String uri = 'http://192.168.163.103:5000/evento';
 // const String uri='https://evento-01og.onrender.com/evento';
 class AppColors {
   static const colors = AppColors();
-
+  final black = const Color(0xFF000000);
   final midShade = const Color(0xFFED8C8C);//appbar,title,subtitle column
   final lightestShade = const Color(0xFFFFEEEE);//tab bar
   final lightShade = const Color(0xFFF7C9C9);

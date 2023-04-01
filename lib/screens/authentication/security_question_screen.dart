@@ -1,12 +1,11 @@
 import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
-import 'package:events/screens/bottomNavgation_bar.dart';
 import 'package:events/widgets/security_question_dropdown.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/login_signup_button.dart';
+import '../homewrapper.dart';
 
 class SecurityQuestion extends StatefulWidget {
   static const routeName = 'SecurityQuestion';
@@ -105,7 +104,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                             securityAnswer: _answerTextController.text)
                         .then((value) => {
                               Navigator.pushNamed(
-                                  context, bottomnavigation_bar.routeName)
+                                  context, HomeWrapper.routeName)
                             })
                         .onError((error, stackTrace) {
                       print("Error ${error.toString()}");
