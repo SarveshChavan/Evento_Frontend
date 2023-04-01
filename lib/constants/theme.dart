@@ -20,7 +20,7 @@ ThemeData appTheme() {
       headline4: GoogleFonts.jost(
           fontSize: 17.0,
           fontWeight: FontWeight.w300,
-          color: AppColors.colors.lightestGrey),
+          color: AppColors.colors.grey),
       headline5: GoogleFonts.jost(
           fontSize: 16.0,
           fontWeight: FontWeight.w400,

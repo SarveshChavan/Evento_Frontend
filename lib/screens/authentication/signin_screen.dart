@@ -2,7 +2,7 @@ import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/authentication/signup_screen.dart';
-import 'package:events/screens/homewrapper.dart';
+import 'package:events/screens/home_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

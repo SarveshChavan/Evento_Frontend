@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:events/constants/colors.dart';
 import 'event/ongoing_screen.dart';
 import 'event/pastevent_screen.dart';
-import 'event/upcomingevent_screen.dart';
+import 'event/upcoming_event.dart';
 
 class OptionTab extends StatefulWidget {
   const OptionTab({Key? key}) : super(key: key);
