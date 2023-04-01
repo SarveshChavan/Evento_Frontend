@@ -1,14 +1,13 @@
 import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
-import 'package:events/constants/handler.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/bottomNavgation_bar.dart';
-import 'package:events/screens/profile/profile_details.dart';
 import 'package:events/screens/authentication/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/custom_text_field.dart';
+import '../../widgets/dialogue_box.dart';
 import '../../widgets/login_signup_button.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -104,7 +103,22 @@ class _SignInScreenState extends State<SignInScreen> {
                               Navigator.pushNamed(
                                   context, bottomnavigation_bar.routeName);
                             }else{
-                              Navigator.pushNamed(context, SignUpScreen.routeName);
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return CustomFrame(
+                                        title: 'User Not Exist',
+                                        button2Text: 'Ok',
+                                        description:
+                                        'Please Register First And Then Login',
+                                        function: () {
+                                          Navigator.push(
+                                              (context),
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SignUpScreen()));
+                                        });
+                                  });
                             }
                           },
                         ),
