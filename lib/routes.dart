@@ -1,4 +1,4 @@
-import 'package:events/screens/homewrapper.dart';
+import 'package:events/screens/home_wrapper.dart';
 import 'package:events/screens/profile/change_password.dart';
 import 'package:events/screens/event/ongoing_screen.dart';
 import 'package:events/screens/profile/profile_details.dart';

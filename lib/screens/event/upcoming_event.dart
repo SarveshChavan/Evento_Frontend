@@ -2,7 +2,7 @@ import 'dart:core';
 import 'package:events/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../widgets/newevent_cards.dart';
+import '../../widgets/new_event_cards.dart';
 
 class UpcomingEventScreen extends StatefulWidget {
   const UpcomingEventScreen({Key? key}) : super(key: key);
