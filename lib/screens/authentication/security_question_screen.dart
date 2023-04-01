@@ -1,11 +1,12 @@
 import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
-import 'package:events/widgets/security_question_dropdown.dart';
+import 'package:events/screens/bottomNavgation_bar.dart';
+import 'package:events/widgets/custom_dropdown.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/login_signup_button.dart';
-import '../homewrapper.dart';
 
 class SecurityQuestion extends StatefulWidget {
   static const routeName = 'SecurityQuestion';
@@ -21,7 +22,12 @@ class SecurityQuestion extends StatefulWidget {
 
 class _SecurityQuestionState extends State<SecurityQuestion> {
   TextEditingController _answerTextController = TextEditingController();
-  SecurityDropDown question_selected = new SecurityDropDown();
+  CustomDropDown question_selected = CustomDropDown(options: <String>[
+    "Where do you live?",
+    "What is the name of your Crush?",
+    "Which is your favourite Cuisine?",
+    "Your Favorite Movie?"
+  ]);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +97,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                   text: 'Signup',
                   isLogin: false,
                   onTap: () async {
-                    print(question_selected.selectedQuestion);
+                    print(question_selected.selected);
                     print(_answerTextController.text);
                     await AuthService()
                         .registerUser(
@@ -100,11 +106,11 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                             email: widget.email,
                             password: widget.password,
                             securityQuestion:
-                                question_selected.selectedQuestion.toString(),
+                                question_selected.selected.toString(),
                             securityAnswer: _answerTextController.text)
                         .then((value) => {
                               Navigator.pushNamed(
-                                  context, HomeWrapper.routeName)
+                                  context, bottomnavigation_bar.routeName)
                             })
                         .onError((error, stackTrace) {
                       print("Error ${error.toString()}");
