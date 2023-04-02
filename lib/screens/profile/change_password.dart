@@ -33,6 +33,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       "Which is your favourite Cuisine?",
       "Your Favorite Movie?"
     ],
+    title: "Select Security Question",
   );
   bool isCorrect = false;
   EventoUser user = EventoUser();

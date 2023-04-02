@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 
 class CustomDropDown extends StatefulWidget {
 
-  CustomDropDown({ required this.options});
+  CustomDropDown({ required this.options, required this.title});
 
   List<String> options;
   String? selected;
+  String title;
   @override
   _CustomDropDownState createState() => _CustomDropDownState();
 }
@@ -30,11 +31,8 @@ class _CustomDropDownState extends State<CustomDropDown> {
         ),
 
         hint: Text(
-          'Select Security Question',
-          style: appTheme().textTheme.headline3?.copyWith(
-            color: AppColors.colors.grey,
-            fontSize: 18,
-          ),
+          widget.title,
+          style: appTheme().textTheme.headline3,
         ),
         isExpanded: true,
         value: widget.selected,
@@ -43,9 +41,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
             value: value,
             child: Text(
               value,
-              style:TextStyle(
-                color: AppColors.colors.grey
-              ),
+              style:appTheme().textTheme.headline3
             ),
           );
         }).toList(),

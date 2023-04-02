@@ -30,18 +30,15 @@ class _UpcomingEventScreenState extends State<UpcomingEventScreen> {
                   style: TextButton.styleFrom(backgroundColor: AppColors.colors.lightestGrey),
                   onPressed: ()async{
                     DateTime? pickedDate=await showDatePicker(context: context, initialDate: DateTime.now(), firstDate:DateTime(2000), lastDate: DateTime(2030));
-                  if(pickedDate!=null)
-                    {
-                      // print(pickedDate);
-                      setState(() {
-                        String dateformat=DateFormat('dd-MM-yyyy').format(pickedDate);
-                        // print(dateformat);
-                        currentDate=dateformat;
-                      });
-
-                    }
-
-
+                  if(pickedDate!=null) {
+                    // print(pickedDate);
+                    setState(() {
+                      String dateformat = DateFormat('dd-MM-yyyy').format(
+                          pickedDate);
+                      // print(dateformat);
+                      currentDate = dateformat;
+                    });
+                  }
                     }, child: Text("Sort by Events ",style: TextStyle(color: AppColors.colors.darkestShade),),),
               ),
               SizedBox(height: 10,),

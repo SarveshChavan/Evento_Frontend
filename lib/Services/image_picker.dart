@@ -2,16 +2,22 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<String> uploadFile(File? file, String folderName) async {
+Future<String> uploadFile(File? file, String folderName, {String fileName =''}) async {
   final prefs = await SharedPreferences.getInstance();
   final userEmail = prefs.getString('userEmail');
   late Reference ref;
   // Create a Reference to the file
-  ref = FirebaseStorage.instance
+  ref = folderName == 'event'
+      ? FirebaseStorage.instance
       .ref()
-      .child(folderName!)
-      .child('/$userEmail')
-      .child('image');
+  .child(folderName)
+  .child('/$userEmail')
+  .child('$fileName')
+      : FirebaseStorage.instance
+          .ref()
+          .child(folderName!)
+          .child('/$userEmail')
+          .child('image');
 
   final metadata = SettableMetadata(
     contentType: 'image/jpeg',
@@ -19,7 +25,7 @@ Future<String> uploadFile(File? file, String folderName) async {
   );
 
   await ref.putFile(File(file.path), metadata);
-  String url= await ref.getDownloadURL();
+  String url = await ref.getDownloadURL();
 
   return url;
 }

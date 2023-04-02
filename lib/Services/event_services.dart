@@ -21,21 +21,20 @@ class EventServices{
     required String isFree,
     // required Function onFetch,
   }) async {
-    // String uid = prefs.getString('auth-token') ?? '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Event event = Event(
         hostEmail: hostEmail,
         eventName: eventName,
         category: category,
         address: address,
-        isFree: 'true',
+        isFree: isFree,
         eventDateTime: eventDateTime,
         eventStatus: eventStatus,
         eventPhoto:eventPhoto,
         eventDescription: eventDescription
     );
-    String token= prefs.getString('token')!;
-    String userEmail=prefs.getString('userEmail')!;
+    String token= prefs.getString('token')??'';
+    String userEmail=prefs.getString('userEmail')??'';
     try {
       http.Response res = await http.post(
         Uri.parse('$uri/event'),
@@ -52,6 +51,7 @@ class EventServices{
         onSuccess: () {
           print('Event Created');
           Event eventModel = Event.fromJson(jsonDecode(res.body)['event']);
+          print(eventModel.id);
         },
       );
     } catch (e) {

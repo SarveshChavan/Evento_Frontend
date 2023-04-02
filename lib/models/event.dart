@@ -13,7 +13,7 @@ class Event{
   String ? eventDescription;
 
   Event({
-    this.id,
+    this.id ='',
     this.hostEmail,
     this.eventName,
     this.category,
