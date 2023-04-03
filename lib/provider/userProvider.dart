@@ -43,6 +43,9 @@ class UserProvider with ChangeNotifier{
   String getProfilePhoto(){
     return _user.profilePhoto.toString();
   }
+  String getUserEmail(){
+    return _user.email.toString();
+  }
   String getUserDescription(){
     return _user.userDescription.toString();
   }

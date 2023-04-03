@@ -27,7 +27,8 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
     "What is the name of your Crush?",
     "Which is your favourite Cuisine?",
     "Your Favorite Movie?"
-  ]);
+  ],
+  title: "Select Security Question",);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

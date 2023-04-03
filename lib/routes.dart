@@ -1,3 +1,4 @@
+import 'package:events/screens/event/add_event.dart';
 import 'package:events/screens/home_wrapper.dart';
 import 'package:events/screens/profile/change_password.dart';
 import 'package:events/screens/event/ongoing_screen.dart';
@@ -39,6 +40,8 @@ class Routes {
       case HomeWrapper.routeName:
         return MaterialPageRoute(builder: (_)=>HomeWrapper());
 
+      case AddEvent.routeName:
+        return MaterialPageRoute(builder: (_)=>AddEvent());
 
       default: return null;
 

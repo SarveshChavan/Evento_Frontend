@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
+import '../constants/theme.dart';
 
 class CustomTextField extends StatelessWidget {
   CustomTextField({Key? key,required this.controller,required this.label, this.lines = 1}) : super(key: key);
@@ -16,16 +17,15 @@ class CustomTextField extends StatelessWidget {
         maxLines: lines,
         controller: controller,
         cursorColor: AppColors.colors.grey,
-        style: TextStyle(
-          color: AppColors.colors.grey,
-        ),
+        style: appTheme().textTheme.headline3,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
         decoration: InputDecoration(
+          alignLabelWithHint: true,
             focusColor: AppColors.colors.midDarkShade,
             labelText: label,
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            labelStyle: TextStyle(
-              color: AppColors.colors.grey,
-            ),
+            labelStyle: appTheme().textTheme.headline3,
             filled: true,
             // floatingLabelBehavior: FloatingLabelBehavior.never,
             fillColor: AppColors.colors.lightestShade,

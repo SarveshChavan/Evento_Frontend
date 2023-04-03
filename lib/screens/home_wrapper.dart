@@ -1,4 +1,5 @@
 import 'package:events/constants/colors.dart';
+import 'package:events/screens/event/add_event.dart';
 import 'package:events/screens/option_tab.dart';
 import 'package:events/screens/profile/profile_details.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,9 @@ class _HomeWrapperState extends State<HomeWrapper> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         backgroundColor: AppColors.colors.midShade,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context,AddEvent.routeName);
+        },
         child: Icon(
           Icons.add,
           size: 40,
