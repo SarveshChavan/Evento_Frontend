@@ -7,8 +7,8 @@ import '../constants/colors.dart';
 import '../constants/handler.dart';
 import '../models/event.dart';
 
-class EventServices{
-  Future<Event> createEvent({
+class EventServices {
+  Future<EventoEvent> createEvent({
     required BuildContext context,
     required String eventName,
     required String hostEmail,
@@ -22,7 +22,7 @@ class EventServices{
     // required Function onFetch,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Event event = Event(
+    EventoEvent event = EventoEvent(
         hostEmail: hostEmail,
         eventName: eventName,
         category: category,
@@ -30,19 +30,18 @@ class EventServices{
         isFree: isFree,
         eventDateTime: eventDateTime,
         eventStatus: eventStatus,
-        eventPhoto:eventPhoto,
-        eventDescription: eventDescription
-    );
-    String token= prefs.getString('token')??'';
-    String userEmail=prefs.getString('userEmail')??'';
+        eventPhoto: eventPhoto,
+        eventDescription: eventDescription);
+    String token = prefs.getString('token') ?? '';
+    String userEmail = prefs.getString('userEmail') ?? '';
     try {
       http.Response res = await http.post(
         Uri.parse('$uri/event'),
         body: event.toJson(),
         headers: <String, String>{
-          'api_key':'123456',
-          'authorization':'Bearer $userEmail',
-          'token':token,
+          'api_key': '123456',
+          'authorization': 'Bearer $userEmail',
+          'token': token,
         },
       );
       httpErrorHandle(
@@ -50,7 +49,8 @@ class EventServices{
         context: context,
         onSuccess: () {
           print('Event Created');
-          Event eventModel = Event.fromJson(jsonDecode(res.body)['event']);
+          EventoEvent eventModel =
+              EventoEvent.fromJson(jsonDecode(res.body)['event']);
           print(eventModel.id);
         },
       );
@@ -70,15 +70,15 @@ class EventServices{
   }) async {
     // String uid = prefs.getString('auth-token') ?? '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token= prefs.getString('token')!;
-    String userEmail=prefs.getString('userEmail')!;
+    String token = prefs.getString('token')!;
+    String userEmail = prefs.getString('userEmail')!;
     try {
       http.Response res = await http.put(
         Uri.parse('$uri/event/end?email=$hostEmail&_id=$id'),
         headers: <String, String>{
-          'api_key':'123456',
-          'authorization':'Bearer $userEmail',
-          'token':token,
+          'api_key': '123456',
+          'authorization': 'Bearer $userEmail',
+          'token': token,
         },
       );
       httpErrorHandle(
@@ -103,15 +103,15 @@ class EventServices{
   }) async {
     // String uid = prefs.getString('auth-token') ?? '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token= prefs.getString('token')!;
-    String userEmail=prefs.getString('userEmail')!;
+    String token = prefs.getString('token')!;
+    String userEmail = prefs.getString('userEmail')!;
     try {
       http.Response res = await http.delete(
         Uri.parse('$uri/event?eventId=$eventId'),
         headers: <String, String>{
-          'api_key':'123456',
-          'authorization':'Bearer $userEmail',
-          'token':token,
+          'api_key': '123456',
+          'authorization': 'Bearer $userEmail',
+          'token': token,
         },
       );
       httpErrorHandle(
@@ -129,23 +129,23 @@ class EventServices{
     }
   }
 
-  Future<Event> getEventById({
+  void getEventById({
     required BuildContext context,
     required String eventId,
-    // required Function onFetch,
+    required Function onFetch,
   }) async {
-    Event e= Event();
+    EventoEvent e = EventoEvent();
     // String uid = prefs.getString('auth-token') ?? '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token= prefs.getString('token')!;
-    String userEmail=prefs.getString('userEmail')!;
+    String token = prefs.getString('token')!;
+    String userEmail = prefs.getString('userEmail')!;
     try {
       http.Response res = await http.get(
         Uri.parse('$uri/event?eventId=$eventId'),
         headers: <String, String>{
-          'api_key':'123456',
-          'authorization':'Bearer $userEmail',
-          'token':token,
+          'api_key': '123456',
+          'authorization': 'Bearer $userEmail',
+          'token': token,
         },
       );
       httpErrorHandle(
@@ -153,47 +153,43 @@ class EventServices{
         context: context,
         onSuccess: () {
           print('Event got by id');
-          e=Event.fromJson(jsonDecode(res.body)['eventDetails']);
+          e = EventoEvent.fromJson(jsonDecode(res.body)['eventDetails']);
+          onFetch(e);
           print(e.hostEmail);
           //TODO: First change the status in provider and then backend status
         },
       );
-    } catch (e) {
+    } catch (err) {
       if (kDebugMode) {
-        print(e);
+        print(err);
       }
     }
-    return e;
   }
 
-  Future<Event> getEvents({
+  void getEvents({
     required BuildContext context,
-    required String email,
-    required String type
-    // required Function onFetch,
+    required String type,
+    required Function onFetch,
   }) async {
-    Event e= Event();
     // String uid = prefs.getString('auth-token') ?? '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token= prefs.getString('token')!;
-    String userEmail=prefs.getString('userEmail')!;
+    String token = prefs.getString('token')!;
+    String userEmail = prefs.getString('userEmail')!;
     try {
       http.Response res = await http.get(
-        Uri.parse('$uri/event/type?email=$email&type=$type'),
+        Uri.parse('$uri/event/type?email=$userEmail&type=$type'),
         headers: <String, String>{
-          'api_key':'123456',
-          'authorization':'Bearer $userEmail',
-          'token':token,
+          'api_key': '123456',
+          'authorization': 'Bearer $userEmail',
+          'token': token,
         },
       );
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          print('Events got');
-          e=Event.fromJson(jsonDecode(res.body)['events']);
-          print(jsonDecode(res.body)['events']);
-          //TODO: First change the status in provider and then backend status
+          print('$uri/event/type?email=$userEmail&type=$type');
+          onFetch(Map<String, dynamic>.from(jsonDecode(res.body)));
         },
       );
     } catch (e) {
@@ -201,7 +197,6 @@ class EventServices{
         print(e);
       }
     }
-    return e;
   }
 
   Future<void> updateEvent({
@@ -220,28 +215,27 @@ class EventServices{
   }) async {
     // String uid = prefs.getString('auth-token') ?? '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token= prefs.getString('token')!;
-    String userEmail=prefs.getString('userEmail')!;
-    Event event = Event(
-      id: eventId,
+    String token = prefs.getString('token')!;
+    String userEmail = prefs.getString('userEmail')!;
+    EventoEvent event = EventoEvent(
+        id: eventId,
         hostEmail: hostEmail,
         eventName: eventName,
-        category:category,
+        category: category,
         address: address,
         isFree: isFree,
         eventDateTime: eventDataTime,
         eventPhoto: eventPhoto,
         eventStatus: eventStatus,
-        eventDescription: eventDescription
-    );
+        eventDescription: eventDescription);
     try {
       http.Response res = await http.put(
         Uri.parse('$uri/event?eventId=$eventId'),
-        body:event.toJson(),
+        body: event.toJson(),
         headers: <String, String>{
-          'api_key':'123456',
-          'authorization':'Bearer $userEmail',
-          'token':token,
+          'api_key': '123456',
+          'authorization': 'Bearer $userEmail',
+          'token': token,
         },
       );
       httpErrorHandle(

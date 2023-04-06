@@ -2,99 +2,113 @@ import 'dart:core';
 import 'package:events/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../widgets/new_event_cards.dart';
-
-
+import '../../constants/theme.dart';
+import '../../models/event.dart';
+import '../../widgets/event_card.dart';
 
 class PastEventScreen extends StatefulWidget {
-  const PastEventScreen({Key? key}) : super(key: key);
-
+  PastEventScreen({Key? key, required this.past}) : super(key: key);
+  List past;
   @override
   State<PastEventScreen> createState() => _PastEventScreenState();
 }
 
 class _PastEventScreenState extends State<PastEventScreen> {
-
-  String currentDate=DateFormat("dd-MM-yyy").format(DateTime.now());
+  String currentDate = DateFormat("dd-MM-yyy").format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(left: 20,),
-        padding: EdgeInsets.symmetric(vertical: 15),
-        // margin: EdgeInsets.only(top: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
-                child:  TextButton(
-                  style: TextButton.styleFrom(backgroundColor: AppColors.colors.lightestGrey),
-                  onPressed: ()async{
-                    DateTime? pickedDate=await showDatePicker(context: context, initialDate: DateTime.now(), firstDate:DateTime(2000), lastDate: DateTime(2030));
-                    if(pickedDate!=null)
-                    {
-                      // print(pickedDate);
-                      setState(() {
-                        String dateFormat=DateFormat('dd-MM-yyyy').format(pickedDate);
-                        // print(dateformat);
-                        currentDate=dateFormat;
-                      });
-
-                    }
-
-
-                  }, child: Text("Sort by Events ",style: TextStyle(color: AppColors.colors.darkestShade),),),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    backgroundColor: AppColors.colors.lightestGrey),
+                onPressed: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2030));
+                  if (pickedDate != null) {
+                    // print(pickedDate);
+                    setState(() {
+                      String dateFormat =
+                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                      // print(dateformat);
+                      currentDate = dateFormat;
+                    });
+                  }
+                },
+                child: Text(
+                  "Sort by Events ",
+                  style: TextStyle(color: AppColors.colors.darkestShade),
+                ),
               ),
-              SizedBox(height: 10,),
-              Center(
-                child: Text("25/01/23"),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Text("25/01/23"),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10, left: 15),
+              child: Text(
+                'Tech',
+                style: appTheme().textTheme.headline3,
               ),
-              SizedBox(height: 10,),
-              Row(
-
-                children: [
-                  Text("Tech")
-                ],
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                children: widget.past.isNotEmpty
+                    ? widget.past
+                        .map((e) => e['category'] == 'Tech'
+                            ? EventCard(
+                                id: e['_id'].toString(),
+                                eventPhoto: e['eventPhoto'].toString(),
+                                eventName: e['eventName'].toString(),
+                                category: e['category'].toString())
+                            : SizedBox())
+                        .toList()
+                    : [],
               ),
-              Container(
-                height: 260,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: eventList.length,
-                  itemBuilder: (context,index){
-
-                    return eventsListviewwidget(eventObject: eventList[index] ,);
-                  }, separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(width: 10,);
-                },),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10, left: 15),
+              child: Text(
+                'Entertainment',
+                style: appTheme().textTheme.headline3,
               ),
-              SizedBox(height: 20,),
-              Row(
-
-                children: [
-                  Text("Non-tech")
-                ],
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                children: widget.past.isNotEmpty
+                    ? widget.past
+                        .map((e) => e['category'] != 'Tech'
+                            ? EventCard(
+                                id: e['_id'].toString(),
+                                eventPhoto: e['eventPhoto'].toString(),
+                                eventName: e['eventName'].toString(),
+                                category: e['category'].toString())
+                            : SizedBox())
+                        .toList()
+                    : [],
               ),
-              Container(
-                height: 260,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: eventList2.length,
-                  itemBuilder: (context,index){
-
-                    return eventsListviewwidget2(eventObject2: eventList2[index] ,);
-                  }, separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(width: 10,);
-                },),
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
-

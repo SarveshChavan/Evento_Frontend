@@ -3,6 +3,7 @@ import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/screens/authentication/signup_screen.dart';
 import 'package:events/screens/home_wrapper.dart';
+import 'package:events/screens/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             token = prefs.getString('token') ?? '';
                             if (token != null && token != '') {
                               Navigator.pushNamed(
-                                  context, HomeWrapper.routeName);
+                                  context, Loading.routeName);
                             }else{
                               showDialog(
                                   context: context,
