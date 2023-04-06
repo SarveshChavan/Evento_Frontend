@@ -1,5 +1,11 @@
+import 'package:events/Services/event_services.dart';
+import 'package:events/constants/theme.dart';
+import 'package:events/provider/userProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:events/constants/colors.dart';
+import 'package:provider/provider.dart';
+import '../models/event.dart';
+import 'authentication/signin_screen.dart';
 import 'event/ongoing_screen.dart';
 import 'event/pastevent_screen.dart';
 import 'event/upcoming_event.dart';
@@ -12,6 +18,26 @@ class OptionTab extends StatefulWidget {
 }
 
 class _OptionTabState extends State<OptionTab> {
+  List ongoing = [], upcoming = [], past = [];
+  bool isLoading = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    EventServices().getEvents(
+        context: context,
+        type: "host",
+        onFetch: (data) {
+          setState(() {
+            print(data);
+            ongoing = data['events']['ongoing'];
+            upcoming = data['events']['upcoming'];
+            past = data['events']['completed'];
+            isLoading = false;
+          });
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -40,7 +66,32 @@ class _OptionTabState extends State<OptionTab> {
                             bottomRight: Radius.circular(20))),
                     height: 60,
                     width: double.infinity,
-                    child: Center(child: Text("Evento")),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.menu,
+                              color: AppColors.colors.white,
+                            )),
+                        Text(
+                          'Evento',
+                          style: appTheme().textTheme.headline3,
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Provider.of<UserProvider>(context, listen: false)
+                                  .logout();
+                              Navigator.popAndPushNamed(
+                                  context, SignInScreen.routeName);
+                            },
+                            icon: Icon(
+                              Icons.logout,
+                              color: AppColors.colors.white,
+                            )),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -75,11 +126,28 @@ class _OptionTabState extends State<OptionTab> {
               ),
             ),
             Expanded(
-              child: TabBarView(children: [
-                OngoingScreen(),
-                UpcomingEventScreen(),
-                PastEventScreen()
-              ]),
+              child: TabBarView(
+                  children: isLoading
+                      ? [
+                          Center(
+                            child: CircularProgressIndicator(
+                              value: 20,
+                            ),
+                          ),
+                          SizedBox(),
+                          SizedBox(),
+                        ]
+                      : [
+                          OngoingScreen(
+                            ongoing: ongoing,
+                          ),
+                          UpcomingEventScreen(
+                            upcoming: upcoming,
+                          ),
+                          PastEventScreen(
+                            past: past,
+                          )
+                        ]),
             )
           ],
         ),

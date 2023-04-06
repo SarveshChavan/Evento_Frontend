@@ -6,24 +6,62 @@ import 'package:events/constants/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class eventPageothers extends StatelessWidget {
-  eventPageothers({Key? key}) : super(key: key);
+import '../../Services/event_services.dart';
 
-  String hostEmail = "abc@gmai.com";
-  String userName = "Kishimito";
-  String category = "Adventure";
-  String eventName = "Naruto";
-  String address = "Building Block 5, Hidden Leaf,\n Fire content, 475788";
+class OthersEventPage extends StatefulWidget {
+  OthersEventPage({Key? key, required this.id}) : super(key: key);
+  static const String routeName = "eventPageOthers";
+  String id;
+  @override
+  State<OthersEventPage> createState() => _OthersEventPageState();
+}
+
+class _OthersEventPageState extends State<OthersEventPage> {
+  String hostEmail = "";
+  String userName = "";
+  String category = "";
+  String eventName = "";
+  String address = "";
   bool isFree = true;
-  String eventDateTime = "22/01/2023";
-  String eventStatus = "ongoing";
-  String eventPhoto = "assets/images/anime.jpg";
-  String eventDescription =
-      "Naruto is a Japanese manga series written and illustrated by Masashi Kishimoto. A young ninja who seeks recognition from his peers and dreams of becoming the Hokage, the leader of his village. Naruto is generally a very simple minded, easy going, cheerful person. He often rushes things, and misses obvious things.";
+  String eventDateTime = "";
+  String eventStatus = "";
+  String eventPhoto = "";
+  String eventDescription = "";
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    EventServices().getEventById(
+      context: context,
+      eventId: widget.id,
+      onFetch: (data) {
+        setState(() {
+          hostEmail = data!.hostEmail;
+          category = data!.category;
+          address = data!.address;
+          eventPhoto = data!.eventPhoto;
+          eventName = data!.eventName;
+          eventDescription = data!.eventDescription;
+          eventDateTime = data!.eventDateTime;
+          eventStatus = data!.eventStatus;
+          isFree = data!.isFree.toString() == "true";
+          isLoading = false;
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading?Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(
+          value: 20,
+        ),
+      ),
+    ):Scaffold(
         body: SingleChildScrollView(
             child: Stack(
       children: [
@@ -31,8 +69,7 @@ class eventPageothers extends StatelessWidget {
           height: 300,
           width: double.infinity,
           child: Image(
-            image: NetworkImage(
-                "https://avatarfiles.alphacoders.com/206/thumb-206822.jpg"),
+            image: NetworkImage(eventPhoto),
             fit: BoxFit.cover,
           ),
         ),
@@ -46,7 +83,9 @@ class eventPageothers extends StatelessWidget {
                 Icons.arrow_back,
                 size: 25,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
             decoration: BoxDecoration(
                 color: AppColors.colors.lightBlack,
@@ -86,7 +125,7 @@ class eventPageothers extends StatelessWidget {
                       style: appTheme().textTheme.headline3?.copyWith(
                           fontWeight: FontWeight.w500, fontSize: 19)),
                   CustomText(
-                      data: 'Hosted By: $userName',
+                      data: 'Hosted By: $hostEmail',
                       style: appTheme().textTheme.headline3),
                   CustomText(
                       data: 'Connect To Host:'

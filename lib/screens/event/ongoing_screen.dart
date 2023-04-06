@@ -1,72 +1,78 @@
 import 'dart:core';
+import 'package:events/models/event.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/new_event_cards.dart';
+import '../../constants/theme.dart';
+import '../../widgets/event_card.dart';
 
 class OngoingScreen extends StatefulWidget {
   static const routeName = 'ongoingScreen';
-  const OngoingScreen({Key? key}) : super(key: key);
-
+  OngoingScreen({Key? key, required this.ongoing}) : super(key: key);
+  List ongoing;
   @override
   State<OngoingScreen> createState() => _OngoingScreenState();
 }
 
 class _OngoingScreenState extends State<OngoingScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea (
-        child: Container(
-          margin: EdgeInsets.only(left: 20,),
-          // padding: EdgeInsets.symmetric(vertical: ),
-          // margin: EdgeInsets.only(top: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text("Tech")
-                  ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10, left: 15),
+                child: Text(
+                  'Tech',
+                  style: appTheme().textTheme.headline3,
                 ),
-                Container(
-                  height: 260,
-                  child: ListView.separated(
-                    shrinkWrap: true,
+              ),
+              SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 15),
                 scrollDirection: Axis.horizontal,
-                      itemCount: eventList.length,
-                      itemBuilder: (context,index){
-
-                    return eventsListviewwidget(eventObject: eventList[index] ,);
-                  }, separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(width: 10,);
-                  },),
+                child: Row(
+                  children: widget.ongoing.isNotEmpty
+                      ? widget.ongoing
+                          .map((e) => e['category'] == 'Tech'
+                              ? EventCard(
+                                  id: e['_id'].toString(),
+                                  eventPhoto: e['eventPhoto'].toString(),
+                                  eventName: e['eventName'].toString(),
+                                  category: e['category'].toString())
+                              : SizedBox())
+                          .toList()
+                      : [],
                 ),
-                SizedBox(height: 20,),
-                Row(
-
-                  children: [
-                    Text("Non-tech")
-                  ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10, left: 15),
+                child: Text(
+                  'Entertainment',
+                  style: appTheme().textTheme.headline3,
                 ),
-                Container(
-                  height: 260,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: eventList2.length,
-                    itemBuilder: (context,index){
-
-                      return eventsListviewwidget2(eventObject2: eventList2[index] ,);
-                    }, separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(width: 10,);
-                  },),
-                )
-              ],
-            ),
+              ),
+              SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: widget.ongoing.isNotEmpty
+                      ? widget.ongoing
+                          .map((e) => e['category'] != 'Tech'
+                              ? EventCard(
+                                  id: e['_id'].toString(),
+                                  eventPhoto: e['eventPhoto'].toString(),
+                                  eventName: e['eventName'].toString(),
+                                  category: e['category'].toString())
+                              : SizedBox())
+                          .toList()
+                      : [],
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 }
-

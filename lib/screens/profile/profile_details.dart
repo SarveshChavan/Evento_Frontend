@@ -5,6 +5,7 @@ import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/models/user.dart';
 import 'package:events/provider/userProvider.dart';
+import 'package:events/screens/home_wrapper.dart';
 import 'package:events/screens/profile/change_password.dart';
 import 'package:events/widgets/custom_shape.dart';
 import 'package:events/screens/authentication/signin_screen.dart';
@@ -85,8 +86,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
-                  Provider.of<UserProvider>(context, listen: false).logout();
-                  Navigator.popAndPushNamed(context, SignInScreen.routeName);
+                  Navigator.pushNamedAndRemoveUntil(context, HomeWrapper.routeName, (route) => false);
                 },
               ),
             ),
