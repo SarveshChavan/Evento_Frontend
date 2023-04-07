@@ -1,10 +1,14 @@
 import 'package:events/Services/event_services.dart';
 import 'package:events/constants/theme.dart';
 import 'package:events/provider/userProvider.dart';
+import 'package:events/screens/home_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:events/constants/colors.dart';
 import 'package:provider/provider.dart';
 import '../models/event.dart';
+import '../models/navigation_item.dart';
+import '../provider/navigationProvider.dart';
+import '../widgets/drawer.dart';
 import 'authentication/signin_screen.dart';
 import 'event/ongoing_screen.dart';
 import 'event/pastevent_screen.dart';
@@ -13,6 +17,7 @@ import 'event/upcoming_event.dart';
 class OptionTab extends StatefulWidget {
   const OptionTab({Key? key}) : super(key: key);
 
+
   @override
   State<OptionTab> createState() => _OptionTabState();
 }
@@ -20,13 +25,15 @@ class OptionTab extends StatefulWidget {
 class _OptionTabState extends State<OptionTab> {
   List ongoing = [], upcoming = [], past = [];
   bool isLoading = true;
+  String type='user';
+  late NavigationItem item;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     EventServices().getEvents(
         context: context,
-        type: "host",
         onFetch: (data) {
           setState(() {
             print(data);
@@ -70,7 +77,7 @@ class _OptionTabState extends State<OptionTab> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () => Scaffold.of(context).openDrawer(),
                             icon: Icon(
                               Icons.menu,
                               color: AppColors.colors.white,
@@ -79,17 +86,7 @@ class _OptionTabState extends State<OptionTab> {
                           'Evento',
                           style: appTheme().textTheme.headline3,
                         ),
-                        IconButton(
-                            onPressed: () {
-                              Provider.of<UserProvider>(context, listen: false)
-                                  .logout();
-                              Navigator.popAndPushNamed(
-                                  context, SignInScreen.routeName);
-                            },
-                            icon: Icon(
-                              Icons.logout,
-                              color: AppColors.colors.white,
-                            )),
+                        SizedBox()
                       ],
                     ),
                   ),

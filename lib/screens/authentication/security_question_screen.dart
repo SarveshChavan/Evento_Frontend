@@ -5,7 +5,10 @@ import 'package:events/screens/home_wrapper.dart';
 import 'package:events/widgets/custom_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/navigation_item.dart';
+import '../../provider/navigationProvider.dart';
 import '../../widgets/login_signup_button.dart';
 
 class SecurityQuestion extends StatefulWidget {
@@ -22,13 +25,15 @@ class SecurityQuestion extends StatefulWidget {
 
 class _SecurityQuestionState extends State<SecurityQuestion> {
   TextEditingController _answerTextController = TextEditingController();
-  CustomDropDown question_selected = CustomDropDown(options: <String>[
-    "Where do you live?",
-    "What is the name of your Crush?",
-    "Which is your favourite Cuisine?",
-    "Your Favorite Movie?"
-  ],
-  title: "Select Security Question",);
+  CustomDropDown question_selected = CustomDropDown(
+    options: <String>[
+      "Where do you live?",
+      "What is the name of your Crush?",
+      "Which is your favourite Cuisine?",
+      "Your Favorite Movie?"
+    ],
+    title: "Select Security Question",
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,6 +115,9 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                 question_selected.selected.toString(),
                             securityAnswer: _answerTextController.text)
                         .then((value) => {
+                              Provider.of<NavigationProvider>(context,
+                                      listen: false)
+                                  .setNavigationItem(NavigationItem.home),
                               Navigator.pushNamed(
                                   context, HomeWrapper.routeName)
                             })
