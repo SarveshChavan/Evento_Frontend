@@ -49,4 +49,10 @@ class UserProvider with ChangeNotifier{
   String getUserDescription(){
     return _user.userDescription.toString();
   }
+  void incrementEvent(){
+    int count = int.parse(_user.totalEvents.toString());
+    count++;
+    _user.totalEvents = count.toString();
+  }
+
 }
