@@ -1,13 +1,17 @@
-import 'dart:async';
+import 'dart:io';
 import 'package:events/Services/auth_services.dart';
+import 'package:events/provider/navigationProvider.dart';
 import 'package:events/provider/userProvider.dart';
 import 'package:events/routes.dart';
 import 'package:events/screens/authentication/signin_screen.dart';
-import 'package:events/screens/homewrapper.dart';
+import 'package:events/screens/home_wrapper.dart';
+import 'package:events/screens/profile/profile_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'models/navigation_item.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +19,7 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => UserProvider()),
     //TODO  Add Event Provider And Other Providers Here
+    ChangeNotifierProvider(create: (context)=> NavigationProvider()),
   ], child: const MaterialApp(home: MyApp())));
 }
 

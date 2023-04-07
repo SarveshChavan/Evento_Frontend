@@ -1,12 +1,15 @@
 import 'package:events/Services/auth_services.dart';
 import 'package:events/constants/colors.dart';
 import 'package:events/constants/theme.dart';
+import 'package:events/models/navigation_item.dart';
 import 'package:events/screens/authentication/signup_screen.dart';
 import 'package:events/screens/home_wrapper.dart';
 import 'package:events/screens/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../provider/navigationProvider.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/dialogue_box.dart';
 import '../../widgets/login_signup_button.dart';
@@ -101,6 +104,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             prefs = await SharedPreferences.getInstance();
                             token = prefs.getString('token') ?? '';
                             if (token != null && token != '') {
+                              Provider.of<NavigationProvider>(context,listen: false).setNavigationItem(NavigationItem.home);
                               Navigator.pushNamed(
                                   context, Loading.routeName);
                             }else{

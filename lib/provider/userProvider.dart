@@ -46,6 +46,12 @@ class UserProvider with ChangeNotifier{
   String getUserEmail(){
     return _user.email.toString();
   }
+  String getUserName(){
+    return _user.userName.toString();
+  }
+  String getTotalEvents(){
+    return _user.totalEvents.toString();
+  }
   String getUserDescription(){
     return _user.userDescription.toString();
   }

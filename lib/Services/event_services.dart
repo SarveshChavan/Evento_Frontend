@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/colors.dart';
 import '../constants/handler.dart';
 import '../models/event.dart';
+import '../models/navigation_item.dart';
+import '../provider/navigationProvider.dart';
 
 class EventServices {
   Future<EventoEvent> createEvent({
@@ -136,6 +139,7 @@ class EventServices {
   }) async {
     EventoEvent e = EventoEvent();
     // String uid = prefs.getString('auth-token') ?? '';
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token')!;
     String userEmail = prefs.getString('userEmail')!;
@@ -168,10 +172,16 @@ class EventServices {
 
   void getEvents({
     required BuildContext context,
-    required String type,
     required Function onFetch,
   }) async {
     // String uid = prefs.getString('auth-token') ?? '';
+    String? type;
+    NavigationItem item=Provider.of<NavigationProvider>(context,listen: false).navigationItem;
+    if(item==NavigationItem.yourEvents){
+        type='host';
+    }else if(item==NavigationItem.home){
+        type='user';
+    }
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token')!;
     String userEmail = prefs.getString('userEmail')!;
