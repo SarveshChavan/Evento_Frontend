@@ -1,6 +1,7 @@
 import 'package:events/Services/event_services.dart';
 import 'package:events/screens/home_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/theme.dart';
@@ -138,58 +139,66 @@ class _HostEventPageState extends State<HostEventPage> {
                           borderRadius: BorderRadius.circular(50)),
                     ),
                   ),
-                  // Positioned(
-                  //     bottom: 20,
-                  //     left: 20,
-                  //     child: Row(
-                  //       children: [
-                  //         if (startEvent == false)
-                  //           ElevatedButton(
-                  //             onPressed: () {},
-                  //             style: ButtonStyle(
-                  //                 backgroundColor:
-                  //                 MaterialStateProperty.resolveWith((states) {
-                  //                   return AppColors.colors.green;
-                  //                 }),
-                  //                 shape: MaterialStateProperty.all<
-                  //                     RoundedRectangleBorder>(
-                  //                     RoundedRectangleBorder(
-                  //                         borderRadius:
-                  //                         BorderRadius.circular(30)))),
-                  //             child: Text(
-                  //               'Start',
-                  //               style: appTheme()
-                  //                   .textTheme
-                  //                   .headline2
-                  //                   ?.copyWith(color: AppColors.colors.white),
-                  //             ),
-                  //           ),
-                  //         ElevatedButton(
-                  //           onPressed: () {
-                  //             ;
-                  //           },
-                  //           style: ButtonStyle(
-                  //               backgroundColor:
-                  //               MaterialStateProperty.resolveWith((states) {
-                  //                 return AppColors.colors.brown;
-                  //               }),
-                  //               shape: MaterialStateProperty.all<
-                  //                   RoundedRectangleBorder>(
-                  //                   RoundedRectangleBorder(
-                  //                       borderRadius: BorderRadius.circular(30)))),
-                  //           child: Text(
-                  //             startEvent ? "End" : 'Delete',
-                  //             style: appTheme()
-                  //                 .textTheme
-                  //                 .headline2
-                  //                 ?.copyWith(color: AppColors.colors.white),
-                  //           ),
-                  //         )
-                  //       ],
-                  //     ))
                 ],
               ),
             ),
+            floatingActionButton: eventStatus!='completed'?SpeedDial(
+              backgroundColor: AppColors.colors.darkShade,
+              animatedIcon: AnimatedIcons.menu_close,
+              overlayColor: AppColors.colors.white,
+              childrenButtonSize: Size(65, 65),
+              overlayOpacity: 0,
+              children: [
+                if (eventStatus == 'upcoming')
+                  SpeedDialChild(
+                    onTap: () async {
+                      await EventServices().startEvent(
+                          context: context,
+                          id: widget.id,
+                          hostEmail: hostEmail);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, HomeWrapper.routeName, (route) => false);
+                    },
+                    backgroundColor: AppColors.colors.green,
+                    child: Icon(
+                      Icons.event_available,
+                      size: 35,
+                      color: AppColors.colors.white,
+                    ),
+                    labelBackgroundColor: AppColors.colors.green,
+                    label: 'Start',
+                    labelStyle: appTheme()
+                        .textTheme
+                        .headline3!
+                        .copyWith(color: AppColors.colors.white),
+                  ),
+                SpeedDialChild(
+                  onTap: () async {
+                    eventStatus != 'upcoming'
+                        ? await EventServices().endEvent(
+                            context: context,
+                            id: widget.id,
+                            hostEmail: hostEmail)
+                        : await EventServices()
+                            .deleteEvent(context: context, eventId: widget.id);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, HomeWrapper.routeName, (route) => false);
+                  },
+                  backgroundColor: AppColors.colors.brown,
+                  child: Icon(
+                    eventStatus != 'upcoming' ? Icons.event_busy : Icons.delete,
+                    color: AppColors.colors.white,
+                    size: 35,
+                  ),
+                  labelBackgroundColor: AppColors.colors.brown.withOpacity(0.8),
+                  label: eventStatus != 'upcoming' ? 'End' : 'Delete',
+                  labelStyle: appTheme()
+                      .textTheme
+                      .headline3!
+                      .copyWith(color: AppColors.colors.white),
+                )
+              ],
+            ):null,
           );
   }
 }
