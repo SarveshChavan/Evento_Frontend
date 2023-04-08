@@ -1,7 +1,10 @@
 import 'package:events/screens/event/event_page_host.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../constants/theme.dart';
+import '../models/navigation_item.dart';
+import '../provider/navigationProvider.dart';
 import '../screens/event/event_page_others.dart';
 
 class EventCard extends StatelessWidget {
@@ -14,9 +17,11 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NavigationItem navigationItem=Provider.of<NavigationProvider>(context).navigationItem;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, HostEventPage.routeName,
+        navigationItem==NavigationItem.yourEvents?Navigator.pushNamed(context, HostEventPage.routeName,
+            arguments: {'id': id}):Navigator.pushNamed(context, OthersEventPage.routeName,
             arguments: {'id': id});
       },
       child: Padding(

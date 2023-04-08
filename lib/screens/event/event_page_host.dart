@@ -144,7 +144,7 @@ class _HostEventPageState extends State<HostEventPage> {
             ),
             floatingActionButton: eventStatus!='completed'?SpeedDial(
               backgroundColor: AppColors.colors.darkShade,
-              animatedIcon: AnimatedIcons.menu_close,
+              animatedIcon: AnimatedIcons.event_add,
               overlayColor: AppColors.colors.white,
               childrenButtonSize: Size(65, 65),
               overlayOpacity: 0,
@@ -162,7 +162,7 @@ class _HostEventPageState extends State<HostEventPage> {
                     backgroundColor: AppColors.colors.green,
                     child: Icon(
                       Icons.event_available,
-                      size: 35,
+                      size: 30,
                       color: AppColors.colors.white,
                     ),
                     labelBackgroundColor: AppColors.colors.green,
@@ -188,7 +188,7 @@ class _HostEventPageState extends State<HostEventPage> {
                   child: Icon(
                     eventStatus != 'upcoming' ? Icons.event_busy : Icons.delete,
                     color: AppColors.colors.white,
-                    size: 35,
+                    size: 30,
                   ),
                   labelBackgroundColor: AppColors.colors.brown.withOpacity(0.8),
                   label: eventStatus != 'upcoming' ? 'End' : 'Delete',
