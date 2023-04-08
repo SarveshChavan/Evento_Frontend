@@ -15,7 +15,21 @@ class PastEventScreen extends StatefulWidget {
 
 class _PastEventScreenState extends State<PastEventScreen> {
   String currentDate = DateFormat("dd-MM-yyy").format(DateTime.now());
-
+  List tech=[],entertainment=[],other=[];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for(int i=0;i<widget.past.length;i++){
+      if(widget.past[i]['category']=='Tech'){
+        tech.add(widget.past[i]);
+      }else if(widget.past[i]['category']=='Other'){
+        other.add(widget.past[i]);
+      }else{
+        entertainment.add(widget.past[i]);
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +72,7 @@ class _PastEventScreenState extends State<PastEventScreen> {
             SizedBox(
               height: 10,
             ),
-            Padding(
+            tech.isEmpty?SizedBox():Padding(
               padding: EdgeInsets.only(top: 10, left: 15),
               child: Text(
                 'Tech',
@@ -66,23 +80,22 @@ class _PastEventScreenState extends State<PastEventScreen> {
               ),
             ),
             SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 15),
+              scrollDirection: Axis.horizontal,
               child: Row(
-                children: widget.past.isNotEmpty
-                    ? widget.past
-                        .map((e) => e['category'] == 'Tech'
-                            ? EventCard(
-                                id: e['_id'].toString(),
-                                eventPhoto: e['eventPhoto'].toString(),
-                                eventName: e['eventName'].toString(),
-                                category: e['category'].toString())
-                            : SizedBox())
-                        .toList()
-                    : [],
+                children:
+                tech
+                    .map((e) => e['category'] == 'Tech'
+                    ? EventCard(
+                    id: e['_id'].toString(),
+                    eventPhoto: e['eventPhoto'].toString(),
+                    eventName: e['eventName'].toString(),
+                    category: e['category'].toString())
+                    : SizedBox())
+                    .toList(),
               ),
             ),
-            Padding(
+            entertainment.isEmpty?SizedBox():Padding(
               padding: EdgeInsets.only(top: 10, left: 15),
               child: Text(
                 'Entertainment',
@@ -90,20 +103,40 @@ class _PastEventScreenState extends State<PastEventScreen> {
               ),
             ),
             SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 15),
+              scrollDirection: Axis.horizontal,
               child: Row(
-                children: widget.past.isNotEmpty
-                    ? widget.past
-                        .map((e) => e['category'] != 'Tech'
-                            ? EventCard(
-                                id: e['_id'].toString(),
-                                eventPhoto: e['eventPhoto'].toString(),
-                                eventName: e['eventName'].toString(),
-                                category: e['category'].toString())
-                            : SizedBox())
-                        .toList()
-                    : [],
+                children: entertainment
+                    .map((e) => e['category'] != 'Tech'
+                    ? EventCard(
+                    id: e['_id'].toString(),
+                    eventPhoto: e['eventPhoto'].toString(),
+                    eventName: e['eventName'].toString(),
+                    category: e['category'].toString())
+                    : SizedBox())
+                    .toList(),
+              ),
+            ),
+            other.isEmpty?SizedBox():Padding(
+              padding: EdgeInsets.only(top: 10, left: 15),
+              child: Text(
+                'Entertainment',
+                style: appTheme().textTheme.headline3,
+              ),
+            ),
+            SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: other
+                    .map((e) => e['category'] != 'Tech'
+                    ? EventCard(
+                    id: e['_id'].toString(),
+                    eventPhoto: e['eventPhoto'].toString(),
+                    eventName: e['eventName'].toString(),
+                    category: e['category'].toString())
+                    : SizedBox())
+                    .toList(),
               ),
             ),
           ],
