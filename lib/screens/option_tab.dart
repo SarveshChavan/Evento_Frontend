@@ -50,105 +50,108 @@ class _OptionTabState extends State<OptionTab> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-          body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              // height: 150,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: AppColors.colors.lightestShade,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 25, spreadRadius: 10, color: Colors.black54)
-                  ]),
-
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: AppColors.colors.midShade,
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20))),
-                    height: 60,
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                            onPressed: () => Scaffold.of(context).openDrawer(),
-                            icon: Icon(
-                              Icons.menu,
-                              color: AppColors.colors.white,
-                            )),
-                        Text(
-                          'Evento',
-                          style: appTheme().textTheme.headline3,
-                        ),
-                        SizedBox()
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TabBar(
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          "Ongoing",
-                          style:
-                              TextStyle(color: AppColors.colors.darkestShade),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          "Upcoming",
-                          style:
-                              TextStyle(color: AppColors.colors.darkestShade),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          "past",
-                          style:
-                              TextStyle(color: AppColors.colors.darkestShade),
-                        ),
-                      ),
-                    ],
-                    indicatorColor: AppColors.colors.darkestShade,
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: TabBarView(
-                  children: isLoading
-                      ? [
-                          Center(
-                            child: CircularProgressIndicator(
-                              value: 20,
+          body: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: AppColors.colors.lightestShade,
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 25, spreadRadius: 10, color: Colors.black54)
+                    ]),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.colors.midShade,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20))),
+                      height: 80,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                onPressed: () => Scaffold.of(context).openDrawer(),
+                                icon: Icon(
+                                  Icons.menu,
+                                  color: AppColors.colors.white,
+                                )),
+                            Text(
+                              'Evento',
+                              style: appTheme().textTheme.headline2?.copyWith(color: AppColors.colors.white,fontSize: 20),
                             ),
+                            SizedBox(
+                              width: 50,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TabBar(
+                      tabs: [
+                        Tab(
+                          child: Text(
+                            "Ongoing",
+                            style:
+                            appTheme().textTheme.headline3?.copyWith(color: AppColors().brown,fontSize: 15),
                           ),
-                          SizedBox(),
-                          SizedBox(),
-                        ]
-                      : [
-                          OngoingScreen(
-                            ongoing: ongoing,
+                        ),
+                        Tab(
+                          child: Text(
+                            "Upcoming",
+                            style:
+                            appTheme().textTheme.headline3?.copyWith(color: AppColors().brown,fontSize: 15),
                           ),
-                          UpcomingEventScreen(
-                            upcoming: upcoming,
+                        ),
+                        Tab(
+                          child: Text(
+                            "Past",
+                            style:
+                            appTheme().textTheme.headline3?.copyWith(color: AppColors().brown,fontSize: 15),
                           ),
-                          PastEventScreen(
-                            past: past,
-                          )
-                        ]),
-            )
-          ],
-        ),
-      )),
+                        ),
+                      ],
+                      indicatorColor: AppColors.colors.midShade,
+                      indicatorWeight: 3,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                    children: isLoading
+                        ? [
+                            Center(
+                              child: CircularProgressIndicator(
+                                value: 20,
+                              ),
+                            ),
+                            SizedBox(),
+                            SizedBox(),
+                          ]
+                        : [
+                            OngoingScreen(
+                              ongoing: ongoing,
+                            ),
+                            UpcomingEventScreen(
+                              upcoming: upcoming,
+                            ),
+                            PastEventScreen(
+                              past: past,
+                            )
+                          ]),
+              )
+            ],
+          )),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:events/screens/event/event_page_host.dart';
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
+import '../constants/theme.dart';
 import '../screens/event/event_page_others.dart';
 
 class EventCard extends StatelessWidget {
@@ -20,31 +21,40 @@ class EventCard extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: Stack(
+          alignment: AlignmentDirectional.bottomStart,
           children: [
+
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image(
                 image: NetworkImage(eventPhoto),
-                height: 200,
+                height: 220,
                 width: 160,
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
             Container(
-              padding: EdgeInsets.all(5),
-              height: 50,
               width: 160,
+              height: 58,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: AppColors.colors.midShade),
-              child: Column(
-                children: [Text(eventName), Text(category)],
+                  color: AppColors.colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)
+                  )
               ),
-            )
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10,top: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(eventName,style:appTheme().textTheme.headline6?.copyWith(fontWeight: FontWeight.w700,color: Colors.white)),
+                    Text(category,style:appTheme().textTheme.headline6?.copyWith(fontWeight: FontWeight.w700,color: Colors.white)),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

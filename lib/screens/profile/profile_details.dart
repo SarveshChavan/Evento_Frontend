@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/drawer.dart';
 import '../authentication/signin_screen.dart';
 
 class ProfileDetails extends StatefulWidget {
@@ -80,14 +81,17 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             ),
           )
         : Scaffold(
+      drawer: DrawerWidget(),
             appBar: AppBar(
               backgroundColor: AppColors.colors.lightShade,
               elevation: 0,
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, HomeWrapper.routeName, (route) => false);
-                },
+              leading: Builder(
+                builder: (context) {
+                  return IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  );
+                }
               ),
             ),
             body: SingleChildScrollView(

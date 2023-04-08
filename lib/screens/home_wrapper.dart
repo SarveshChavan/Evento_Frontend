@@ -42,7 +42,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
           size: 40,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: PageStorage(
         bucket: bucket,
         child: currentScreen,
