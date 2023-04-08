@@ -54,16 +54,9 @@ class _MyAppState extends State<MyApp> {
                       prefsData?.getString('token') != ''
                   ? Container(
                       color: Colors.white,
-                      child: const SafeArea(
-                        maintainBottomViewPadding: true,
-                        child: HomeWrapper(),
-                      ),
+                      child: HomeWrapper(),
                     )
-                  : const SafeArea(
-                      bottom: true,
-                      top: false,
-                      child: SignInScreen(),
-                    ));
+                  : SignInScreen());
         });
   }
 }
