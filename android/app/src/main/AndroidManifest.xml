@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.evento.events">
    <application
-        android:label="events"
+        android:label="Evento"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/evento">
         <activity
             android:name=".MainActivity"
             android:exported="true"
