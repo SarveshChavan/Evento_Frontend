@@ -19,7 +19,7 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => UserProvider()),
     //TODO  Add Event Provider And Other Providers Here
-    ChangeNotifierProvider(create: (context)=> NavigationProvider()),
+    ChangeNotifierProvider(create: (context) => NavigationProvider()),
   ], child: const MaterialApp(home: MyApp())));
 }
 
