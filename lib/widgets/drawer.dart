@@ -65,13 +65,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 context: context,
                 item: NavigationItem.profile,
                 route: ProfileDetails.routeName),
-            BuildTile(
-                //TODO: Add svg_icon
-                text: 'Tutorial',
-                icon: Icons.book_sharp,
-                context: context,
-                item: NavigationItem.tutorial,
-                route: ProfileDetails.routeName),
+            // BuildTile(
+            //     //TODO: Add svg_icon
+            //     text: 'Tutorial',
+            //     icon: Icons.book_sharp,
+            //     context: context,
+            //     item: NavigationItem.tutorial,
+            //     route: ProfileDetails.routeName),
             BuildTile(
                 // TODO: Add svg_icon
                 text: 'Your Events',
@@ -97,8 +97,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 // TODO: Add svg_icon
                 text: 'Sign out',
                 icon: Icons.logout,
-
-                // Navigator.pushNamedAndRemoveUntil(context, SignInScreen.routeName, (route) => false);
                 context: context,
                 item: NavigationItem.logOut,
                 route: SignInScreen.routeName),

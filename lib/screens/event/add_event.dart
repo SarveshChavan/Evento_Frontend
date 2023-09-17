@@ -71,7 +71,8 @@ class _AddEventState extends State<AddEvent> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           iconSize: 30,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);         },
         ),
       ),
       body: SingleChildScrollView(
