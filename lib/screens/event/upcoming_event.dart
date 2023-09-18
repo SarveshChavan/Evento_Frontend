@@ -16,21 +16,22 @@ class UpcomingEventScreen extends StatefulWidget {
 
 class _UpcomingEventScreenState extends State<UpcomingEventScreen> {
   String currentDate = DateFormat("dd-MM-yyy").format(DateTime.now());
-  List tech=[],entertainment=[],other=[];
+  List tech = [], entertainment = [], other = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    for(int i=0;i<widget.upcoming.length;i++){
-      if(widget.upcoming[i]['category']=='Tech'){
+    for (int i = 0; i < widget.upcoming.length; i++) {
+      if (widget.upcoming[i]['category'] == 'Technology') {
         tech.add(widget.upcoming[i]);
-      }else if(widget.upcoming[i]['category']=='Other'){
+      } else if (widget.upcoming[i]['category'] == 'Other') {
         other.add(widget.upcoming[i]);
-      }else{
+      } else {
         entertainment.add(widget.upcoming[i]);
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,117 +39,91 @@ class _UpcomingEventScreenState extends State<UpcomingEventScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Center(
-            //   child: TextButton(
-            //     style: TextButton.styleFrom(
-            //         backgroundColor: AppColors.colors.lightestGrey),
-            //     onPressed: () async {
-            //       DateTime? pickedDate = await showDatePicker(
-            //           context: context,
-            //           initialDate: DateTime.now(),
-            //           firstDate: DateTime(2000),
-            //           lastDate: DateTime(2030));
-            //       if (pickedDate != null) {
-            //         // print(pickedDate);
-            //         setState(() {
-            //           String dateFormat =
-            //               DateFormat('dd-MM-yyyy').format(pickedDate);
-            //           // print(dateformat);
-            //           currentDate = dateFormat;
-            //         });
-            //       }
-            //     },
-            //     child: Text(
-            //       "Sort by Events ",
-            //       style: TextStyle(color: AppColors.colors.darkestShade),
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            // Center(
-            //   child: Text("25/01/23"),
-            // ),
+            if (tech.isEmpty || entertainment.isEmpty || other.isEmpty)
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Center(
+                  child: Text(
+                    'No Events Available',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.colors.grey),
+                  ),
+                ),
+              ),
             SizedBox(
               height: 10,
             ),
-            tech.isEmpty?SizedBox():Padding(
-              padding: EdgeInsets.only(top: 10, left: 15),
-              child: Text(
-                'Tech',
-                style: appTheme().textTheme.headline3,
-              ),
-            ),
-            SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children:tech.isNotEmpty?
-                tech
-                    .map((e) => e['category'] == 'Tech'
-                    ? EventCard(
-                    id: e['_id'].toString(),
-                    eventPhoto: e['eventPhoto'].toString(),
-                    eventName: e['eventName'].toString(),
-                    category: e['category'].toString())
-                    : SizedBox())
-                    .toList():[Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(child: Text("No Events Found")),
-                )],
-              ),
-            ),
-            entertainment.isEmpty?SizedBox():Padding(
-              padding: EdgeInsets.only(top: 10, left: 15),
-              child: Text(
-                'Entertainment',
-                style: appTheme().textTheme.headline3,
-              ),
-            ),
-            SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: entertainment.isNotEmpty?entertainment
-                    .map((e) => e['category'] == 'Entertainment'
-                    ? EventCard(
-                    id: e['_id'].toString(),
-                    eventPhoto: e['eventPhoto'].toString(),
-                    eventName: e['eventName'].toString(),
-                    category: e['category'].toString())
-                    : SizedBox())
-                    .toList():[Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(child: Text("No Events Found")),
-                )],
-              ),
-            ),
-            other.isEmpty?SizedBox():Padding(
-              padding: EdgeInsets.only(top: 10, left: 15),
-              child: Text(
-                'Other',
-                style: appTheme().textTheme.headline3,
-              ),
-            ),
-            SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: other.isNotEmpty?other
-                    .map((e) => e['category'] != 'Other'
-                    ? EventCard(
-                    id: e['_id'].toString(),
-                    eventPhoto: e['eventPhoto'].toString(),
-                    eventName: e['eventName'].toString(),
-                    category: e['category'].toString())
-                    : SizedBox())
-                    .toList():[Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(child: Text("No Events Found")),
-                )],
-              ),
-            ),
+            tech.isEmpty
+                ? SizedBox()
+                : Padding(
+                    padding: EdgeInsets.only(top: 10, left: 15),
+                    child: Text(
+                      'Technology',
+                      style: appTheme().textTheme.headline3,
+                    ),
+                  ),
+            tech.isNotEmpty
+                ? SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        children: tech
+                            .map((e) => EventCard(
+                                id: e['_id'].toString(),
+                                eventPhoto: e['eventPhoto'].toString(),
+                                eventName: e['eventName'].toString(),
+                                category: e['category'].toString()))
+                            .toList()),
+                  )
+                : SizedBox(),
+            entertainment.isEmpty
+                ? SizedBox()
+                : Padding(
+                    padding: EdgeInsets.only(top: 10, left: 15),
+                    child: Text(
+                      'Entertainment',
+                      style: appTheme().textTheme.headline3,
+                    ),
+                  ),
+            entertainment.isNotEmpty
+                ? SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        children: entertainment
+                            .map((e) => EventCard(
+                                id: e['_id'].toString(),
+                                eventPhoto: e['eventPhoto'].toString(),
+                                eventName: e['eventName'].toString(),
+                                category: e['category'].toString()))
+                            .toList()),
+                  )
+                : SizedBox(),
+            other.isEmpty
+                ? SizedBox()
+                : Padding(
+                    padding: EdgeInsets.only(top: 10, left: 15),
+                    child: Text(
+                      'Other',
+                      style: appTheme().textTheme.headline3,
+                    ),
+                  ),
+            other.isNotEmpty
+                ? SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        children: other
+                            .map((e) => EventCard(
+                                id: e['_id'].toString(),
+                                eventPhoto: e['eventPhoto'].toString(),
+                                eventName: e['eventName'].toString(),
+                                category: e['category'].toString()))
+                            .toList()),
+                  )
+                : SizedBox(),
           ],
         ),
       ),

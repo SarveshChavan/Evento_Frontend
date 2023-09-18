@@ -156,9 +156,9 @@ class _AddEventState extends State<AddEvent> {
                     //TODO change the datePicker no selection of past date and no selectionn of date 1 month later
                     DateTime? pickedDate = await showDatePicker(
                         context: context,
-                        initialDate: oldDate != null ? oldDate : DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2030));
+                        initialDate: oldDate != null ? oldDate : DateTime.now().add(Duration(days: 1)),
+                        firstDate: DateTime.now().add(Duration(days: 1)),
+                        lastDate: DateTime.now().add(Duration(days: 31)));
                     if (pickedDate != null) {
                       setState(() {
                         oldDate = pickedDate;

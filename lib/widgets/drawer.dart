@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/colors.dart';
+import '../constants/theme.dart';
 import '../provider/userProvider.dart';
 import '../screens/authentication/signin_screen.dart';
 import '../screens/profile/profile_details.dart';
@@ -33,7 +34,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               },
               leading: CircleAvatar(
                 radius: 35,
-                backgroundImage: NetworkImage(user.getProfilePhoto()??"https://avatarfiles.alphacoders.com/206/thumb-206822.jpg"),
+                backgroundImage: NetworkImage(user.getProfilePhoto() ??
+                    "https://avatarfiles.alphacoders.com/206/thumb-206822.jpg"),
               ),
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 7),
@@ -100,6 +102,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 context: context,
                 item: NavigationItem.logOut,
                 route: SignInScreen.routeName),
+            Padding(
+              padding: EdgeInsets.only(top: 100),
+              child: Text("@Evento",
+                  style: appTheme().textTheme.headline3?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: AppColors().brown)),
+            )
           ]);
         })));
   }
